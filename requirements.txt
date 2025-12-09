@@ -1,0 +1,6 @@
+fastapi
+sqlmodel
+telethon
+openai
+pydantic-settings
+jinja2

@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    background: #0d1117;
+    color: #ddd;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 10px 20px;
+    background: #11161c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#timeline-container select {
+    padding: 4px;
+    background: #1a1f24;
+    border: 1px solid #444;
+    color: #eee;
+}
+
+#map {
+    width: 100%;
+    height: calc(100vh - 70px);
+}
+
+#dashboard-alert {
+    background: #332200;
+    color: #facc15;
+    padding: 5px 10px;
+    display: none;
+}
+
+#sidepanel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: #161b22;
+    padding: 20px;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    border-left: 1px solid #333;
+    z-index: 1000;
+}
+
+#sidepanel.visible {
+    right: 0;
+}
+
+#close-panel {
+    background: none;
+    color: #ccc;
+    border: none;
+    font-size: 22px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.zone-block h4 {
+    margin-bottom: 5px;
+}
+
+.event {
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+}
+
+.evt-title {
+    font-weight: bold;
+    color: #ddd;
+    margin-bottom: 4px;
+}
+
+/* Texte complet de l'événement */
+.evt-text {
+    color: #ccc;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+}
+
+.evt-meta {
+    font-size: 11px;
+    color: #777;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.evt-meta .evt-source {
+    color: #aaa;
+    font-weight: normal;
+}
+
+.evt-meta .evt-link a {
+    color: #58a6ff;
+    text-decoration: underline;
+}

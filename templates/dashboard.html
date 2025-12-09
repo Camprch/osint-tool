@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>OSINT Dashboard</title>
+
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>OSINT Dashboard</h1>
+
+        <div id="timeline-container">
+            <label for="timeline">Date :</label>
+            <select id="timeline"></select>
+        </div>
+    </header>
+
+    <div id="dashboard-alert"></div>
+
+    <div id="map"></div>
+
+    <!-- Panneau latéral -->
+    <div id="sidepanel">
+        <button id="close-panel">✖</button>
+        <h2 id="panel-country-name"></h2>
+
+        <div id="sidepanel-content">
+            <h3>Événements</h3>
+            <div id="events"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
