@@ -4,39 +4,54 @@
     <meta charset="UTF-8" />
     <title>OSINT Dashboard</title>
 
+    <!-- Favicon emoji 🛰️ -->
+    <link rel="icon" type="image/svg+xml"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='central' font-size='52'%3E🛰️%3C/text%3E%3C/svg%3E">
+
     <link rel="stylesheet" href="/static/css/dashboard.css" />
 
     <!-- Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    >
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
 </head>
 
 <body>
 
-    <header>
-        <h1>OSINT Dashboard</h1>
+<header>
+    <h1>
+        <span class="logo-icon">🛰️</span>
+        OSINT Dashboard
+    </h1>
 
-        <div id="timeline-container">
-            <label for="timeline">Date :</label>
-            <select id="timeline"></select>
-        </div>
-    </header>
-
-    <div id="dashboard-alert"></div>
-
-    <div id="map"></div>
-
-    <!-- Panneau latéral -->
-    <div id="sidepanel">
-        <button id="close-panel">✖</button>
-        <h2 id="panel-country-name"></h2>
-
-        <div id="sidepanel-content">
-            <h3>Événements</h3>
-            <div id="events"></div>
-        </div>
+    <div id="timeline-container">
+        <select id="timeline"></select>
     </div>
+</header>
 
-    <script src="/static/js/dashboard.js"></script>
+<div id="dashboard-alert"></div>
+
+<div id="map"></div>
+
+<!-- Panneau latéral -->
+<div id="sidepanel">
+    <button id="close-panel">✖</button>
+    <h2 id="panel-country-name"></h2>
+
+    <div id="sidepanel-content">
+        <h3>Événements</h3>
+        <div id="events"></div>
+    </div>
+</div>
+
+<script src="/static/js/dashboard.js"></script>
 </body>
 </html>

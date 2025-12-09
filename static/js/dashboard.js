@@ -18,7 +18,7 @@ function initMap() {
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
         {
-            attribution: '&copy; CARTO',
+            attribution: "&copy; CARTO",
             noWrap: false,
         }
     ).addTo(map);
@@ -28,19 +28,39 @@ function initMap() {
 // Utilitaires
 // ---------------------------------------------------------
 function clearMarkers() {
-    markers.forEach(m => map.removeLayer(m));
+    markers.forEach((m) => map.removeLayer(m));
     markers = [];
 }
 
+/**
+ * Style des pastilles :
+ * - rayon min 5, max ~20 (plus petit qu'avant)
+ * - couleur qui varie avec le nombre d'événements
+ */
 function markerStyle(count) {
-    const radius = Math.min(5 + count, 30);
-    const color = count < 5 ? "#22c55e" : count < 20 ? "#facc15" : "#f97316";
+    const n = Math.max(1, count || 1);
+    const minRadius = 5;
+    const maxRadius = 10; // avant tu pouvais monter à 30
+
+    const maxCount = 30; // adapter si nécessaire
+    const ratio = Math.min(n / maxCount, 1);
+    const radius = minRadius + (maxRadius - minRadius) * ratio;
+
+    let color;
+    if (n < 5) {
+        color = "#22c55e"; // vert
+    } else if (n < 15) {
+        color = "#eab308"; // jaune
+    } else {
+        color = "#f97316"; // orange
+    }
+
     return {
         radius,
         color,
         fillColor: color,
-        fillOpacity: 0.8,
-        weight: 1
+        fillOpacity: 0.85,
+        weight: 1,
     };
 }
 
@@ -65,7 +85,7 @@ async function loadTimeline() {
     const select = document.getElementById("timeline");
     select.innerHTML = "";
 
-    timelineDates.forEach(dateStr => {
+    timelineDates.forEach((dateStr) => {
         const opt = document.createElement("option");
         opt.value = dateStr;
         opt.textContent = dateStr;
@@ -96,7 +116,7 @@ async function loadCountries() {
 
     let missing = [];
 
-    countries.forEach(c => {
+    countries.forEach((c) => {
         const name = c.country;
         const count = c.events_count;
 
@@ -115,9 +135,19 @@ async function loadCountries() {
 
         const [lat, lon] = countryCoords[coordKey];
 
-        const marker = L.circleMarker([lat, lon], markerStyle(count));
+        const style = markerStyle(count);
+        const marker = L.circleMarker([lat, lon], style);
 
         marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
+
+        // Effet "pop" léger au survol de la pastille
+        const baseRadius = style.radius;
+        marker.on("mouseover", function () {
+            this.setStyle({ radius: baseRadius * 1.15 });
+        });
+        marker.on("mouseout", function () {
+            this.setStyle({ radius: baseRadius });
+        });
 
         marker.on("click", () => openSidePanel(name));
 
@@ -156,7 +186,9 @@ async function loadEvents(country) {
     eventsContainer.innerHTML = "Chargement...";
 
     const resp = await fetch(
-        `/api/countries/${encodeURIComponent(country)}/events?date=${currentDate}`
+        `/api/countries/${encodeURIComponent(
+            country
+        )}/events?date=${currentDate}`
     );
 
     if (!resp.ok) {
@@ -171,21 +203,27 @@ async function loadEvents(country) {
         return;
     }
 
-    const html = data.zones.map((zone, idx) => {
-        const header = [zone.region, zone.location].filter(Boolean).join(" – ") || "Zone inconnue";
+    const html = data.zones
+        .map((zone, idx) => {
+            const header =
+                [zone.region, zone.location].filter(Boolean).join(" – ") ||
+                "Zone inconnue";
 
-        const msgs = zone.messages.map(m => {
-            const title = m.title || "(Sans titre)";
-            // Texte complet traduit ou aperçu si non disponible
-            const fullText = m.translated_text || m.preview || "";
-            const orientation = m.orientation ? ` • ${m.orientation}` : "";
-            // Lien uniquement sur le numéro de post
-            const postLink = m.url
-                ? `<a href="${m.url}" target="_blank">post n° ${m.telegram_message_id}</a>`
-                : "";
-            const timeStr = new Date(m.event_timestamp || m.created_at).toLocaleString();
+            const msgs = zone.messages
+                .map((m) => {
+                    const title = m.title || "(Sans titre)";
+                    const fullText = m.translated_text || m.preview || "";
+                    const orientation = m.orientation
+                        ? ` • ${m.orientation}`
+                        : "";
+                    const postLink = m.url
+                        ? `<a href="${m.url}" target="_blank">post n° ${m.telegram_message_id}</a>`
+                        : "";
+                    const timeStr = new Date(
+                        m.event_timestamp || m.created_at
+                    ).toLocaleString();
 
-            return `
+                    return `
                 <li class="event">
                     <div class="evt-title">${title}</div>
                     <div class="evt-text">${fullText}</div>
@@ -196,33 +234,39 @@ async function loadEvents(country) {
                     </div>
                 </li>
             `;
-        }).join("");
+                })
+                .join("");
 
-        // zone-block déroulable
-        return `
+            return `
             <section class="zone-block">
                 <h4 class="zone-header" data-idx="${idx}">
-                    <span class="toggle-btn" style="cursor:pointer;">▶</span> ${header} <span class="evt-count">(${zone.messages_count})</span>
+                    <span class="toggle-btn">▶</span> ${header}
+                    <span class="evt-count">(${zone.messages_count})</span>
                 </h4>
-                <ul class="event-list" id="zone-list-${idx}" style="display:none;">${msgs}</ul>
+                <ul class="event-list" id="zone-list-${idx}" style="display:none;">
+                    ${msgs}
+                </ul>
             </section>
         `;
-    });
+        })
+        .join("");
 
-    eventsContainer.innerHTML = html.join("");
+    eventsContainer.innerHTML = html;
 
-    // Ajout des listeners pour dérouler les zones
+    // Listeners pour dérouler les zones
     data.zones.forEach((zone, idx) => {
-        const headerEl = document.querySelector(`.zone-header[data-idx='${idx}']`);
+        const headerEl = document.querySelector(
+            `.zone-header[data-idx='${idx}']`
+        );
         const listEl = document.getElementById(`zone-list-${idx}`);
-        const btn = headerEl.querySelector('.toggle-btn');
-        headerEl.addEventListener('click', () => {
-            if (listEl.style.display === 'none') {
-                listEl.style.display = '';
-                btn.textContent = '▼';
+        const btn = headerEl.querySelector(".toggle-btn");
+        headerEl.addEventListener("click", () => {
+            if (listEl.style.display === "none") {
+                listEl.style.display = "";
+                btn.textContent = "▼";
             } else {
-                listEl.style.display = 'none';
-                btn.textContent = '▶';
+                listEl.style.display = "none";
+                btn.textContent = "▶";
             }
         });
     });
