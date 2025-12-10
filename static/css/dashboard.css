@@ -69,7 +69,7 @@ header h1 {
 
 /* Fond hors planisphère = même couleur que le fond */
 .leaflet-container {
-    background: #0d1117 !important;
+    background: #262626 !important;
 }
 
 /* Boutons + / - plus sombres + léger "pop" au survol */

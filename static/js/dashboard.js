@@ -13,7 +13,7 @@ const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
 // ---------------------------------------------------------
 function initMap() {
     map = L.map("map", {
-        worldCopyJump: false,
+        worldCopyJump: true, // n'affiche qu'une seule copie du monde
         minZoom: 2,
         maxZoom: 5,
         tapTolerance: 30,
@@ -23,7 +23,7 @@ function initMap() {
         "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
         {
             attribution: "&copy; CARTO",
-            noWrap: false,
+            noWrap: true, // empêche le wrap horizontal
         }
     ).addTo(map);
 }
