@@ -32,10 +32,6 @@
         <span class="logo-icon">🛰️</span>
         OSINT Dashboard
     </h1>
-
-    <div id="timeline-container">
-        <select id="timeline"></select>
-    </div>
 </header>
 
 <div id="dashboard-alert"></div>
@@ -48,10 +44,16 @@
     <h2 id="panel-country-name"></h2>
 
     <div id="sidepanel-content">
+        <div id="timeline-container">
+            <label for="timeline">Date :</label>
+            <select id="timeline"></select>
+        </div>
+
         <h3>Événements</h3>
         <div id="events"></div>
     </div>
 </div>
+<div id="sidepanel-backdrop"></div>
 
 <script src="/static/js/dashboard.js"></script>
 </body>

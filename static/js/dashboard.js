@@ -3,7 +3,8 @@ let countryCoords = {};
 let countryAliases = {};
 let timelineDates = [];
 let currentDate = null;
-let markers = [];
+let currentCountry = null;
+let markersByCountry = {};
 
 const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
 
@@ -15,7 +16,7 @@ function initMap() {
         worldCopyJump: false,
         minZoom: 2,
         maxZoom: 5,
-        tapTolerance: 30,  
+        tapTolerance: 30,
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -31,8 +32,8 @@ function initMap() {
 // Utilitaires
 // ---------------------------------------------------------
 function clearMarkers() {
-    markers.forEach((m) => map.removeLayer(m));
-    markers = [];
+    Object.values(markersByCountry).forEach((m) => map.removeLayer(m));
+    markersByCountry = {};
 }
 
 /**
@@ -65,7 +66,7 @@ function markerStyle(count) {
         color,
         fillColor: color,
         fillOpacity: 0.85,
-        weight: IS_MOBILE ? 2 : 1,  // un léger bord plus épais sur mobile
+        weight: IS_MOBILE ? 2 : 1,
     };
 }
 
@@ -80,14 +81,16 @@ async function loadCountryData() {
 }
 
 // ---------------------------------------------------------
-// Charger les dates
+// Charger les dates (timeline)
 // ---------------------------------------------------------
 async function loadTimeline() {
     const resp = await fetch("/api/dates");
     const data = await resp.json();
-    timelineDates = data.dates;
+    timelineDates = data.dates || [];
 
     const select = document.getElementById("timeline");
+    if (!select) return;
+
     select.innerHTML = "";
 
     timelineDates.forEach((dateStr) => {
@@ -100,37 +103,43 @@ async function loadTimeline() {
     if (timelineDates.length > 0) {
         currentDate = timelineDates[0];
         select.value = currentDate;
+    } else {
+        currentDate = null;
     }
 
+    // Changer la date ne change plus la carte :
+    // on ne recharge que les événements pour le pays sélectionné
     select.addEventListener("change", () => {
         currentDate = select.value;
-        loadCountries();
+        if (currentCountry) {
+            loadEvents(currentCountry);
+        }
     });
 }
 
 // ---------------------------------------------------------
-// Charger la heatmap par pays
+// Charger les pays actifs (toutes les pastilles)
 // ---------------------------------------------------------
-async function loadCountries() {
-    if (!currentDate) return;
-
-    const resp = await fetch(`/api/countries?date=${currentDate}`);
-    const countries = await resp.json();
+async function loadActiveCountries() {
+    const resp = await fetch("/api/countries/active");
+    if (!resp.ok) {
+        console.error("Erreur /api/countries/active", resp.status);
+        return;
+    }
+    const countries = await resp.json(); // [{ country, events_count, last_date }, ...]
 
     clearMarkers();
 
-    let missing = [];
+    const missing = [];
+    const alert = document.getElementById("dashboard-alert");
 
     countries.forEach((c) => {
         const name = c.country;
         const count = c.events_count;
 
         let coordKey = name;
-        if (!(coordKey in countryCoords)) {
-            // Utiliser l'alias si disponible
-            if (name in countryAliases) {
-                coordKey = countryAliases[name];
-            }
+        if (!(coordKey in countryCoords) && name in countryAliases) {
+            coordKey = countryAliases[name];
         }
 
         if (!(coordKey in countryCoords)) {
@@ -140,12 +149,16 @@ async function loadCountries() {
 
         const [lat, lon] = countryCoords[coordKey];
 
+        // On évite les doublons : une seule pastille par pays
+        if (markersByCountry[name]) {
+            return;
+        }
+
         const style = markerStyle(count);
         const marker = L.circleMarker([lat, lon], style);
 
         marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
 
-        // Effet "pop" léger au survol de la pastille
         const baseRadius = style.radius;
         marker.on("mouseover", function () {
             this.setStyle({ radius: baseRadius * 1.15 });
@@ -157,53 +170,26 @@ async function loadCountries() {
         marker.on("click", () => openSidePanel(name));
 
         marker.addTo(map);
-        markers.push(marker);
+        markersByCountry[name] = marker;
     });
 
-    const alert = document.getElementById("dashboard-alert");
-    if (missing.length > 0) {
-        alert.textContent = `⚠️ Pays non géolocalisés : ${missing.join(", ")}`;
-        alert.style.display = "block";
-    } else {
-        alert.style.display = "none";
+    if (alert) {
+        if (missing.length > 0) {
+            alert.textContent = `⚠️ Pays non géolocalisés : ${missing.join(", ")}`;
+            alert.style.display = "block";
+        } else {
+            alert.style.display = "none";
+        }
     }
 }
 
 // ---------------------------------------------------------
-// Sidepanel : événements
+// Rendu des événements dans le panel
 // ---------------------------------------------------------
-async function openSidePanel(country) {
-    document.getElementById("panel-country-name").textContent = country;
-
-    const panel = document.getElementById("sidepanel");
-    panel.classList.add("visible");
-
-    loadEvents(country);
-}
-
-document.getElementById("close-panel").addEventListener("click", () => {
-    document.getElementById("sidepanel").classList.remove("visible");
-});
-
-// ---------------------------------------------------------
-async function loadEvents(country) {
+function renderEvents(data) {
     const eventsContainer = document.getElementById("events");
-    eventsContainer.innerHTML = "Chargement...";
 
-    const resp = await fetch(
-        `/api/countries/${encodeURIComponent(
-            country
-        )}/events?date=${currentDate}`
-    );
-
-    if (!resp.ok) {
-        eventsContainer.textContent = "Erreur de chargement.";
-        return;
-    }
-
-    const data = await resp.json();
-
-    if (!data.zones || data.zones.length === 0) {
+    if (!data || !data.zones || data.zones.length === 0) {
         eventsContainer.textContent = "Aucun événement.";
         return;
     }
@@ -278,13 +264,106 @@ async function loadEvents(country) {
 }
 
 // ---------------------------------------------------------
+// Sidepanel : ouverture + chargement des événements
+// ---------------------------------------------------------
+async function openSidePanel(country) {
+    currentCountry = country;
+    document.getElementById("panel-country-name").textContent = country;
+
+    const panel = document.getElementById("sidepanel");
+    panel.classList.add("visible");
+
+    await loadLatestEvents(country);
+}
+
+document.getElementById("close-panel").addEventListener("click", () => {
+    document.getElementById("sidepanel").classList.remove("visible");
+});
+
+// Fermer le panneau en cliquant sur le fond (PC seulement)
+document.getElementById("sidepanel-backdrop").addEventListener("click", () => {
+    if (!IS_MOBILE) {  // sécurité : on ne ferme pas par clic sur mobile
+        document.getElementById("sidepanel").classList.remove("visible");
+    }
+});
+
+// ---------------------------------------------------------
+// Charger les événements du jour le plus récent pour le pays
+// ---------------------------------------------------------
+async function loadLatestEvents(country) {
+    const eventsContainer = document.getElementById("events");
+    eventsContainer.innerHTML = "Chargement...";
+
+    const resp = await fetch(
+        `/api/countries/${encodeURIComponent(country)}/latest-events`
+    );
+
+    if (!resp.ok) {
+        eventsContainer.textContent = "Aucun événement pour ce pays.";
+        return;
+    }
+
+    const data = await resp.json();
+
+    // data.date = date la plus récente pour ce pays
+    currentDate = data.date;
+
+    const select = document.getElementById("timeline");
+    if (select && currentDate) {
+        // Si la date la plus récente n'est pas dans la liste, on l'ajoute
+        let found = false;
+        Array.from(select.options).forEach((opt) => {
+            if (opt.value === currentDate) {
+                found = true;
+            }
+        });
+        if (!found) {
+            const opt = new Option(currentDate, currentDate);
+            select.add(opt, 0);
+        }
+        select.value = currentDate;
+    }
+
+    renderEvents(data);
+}
+
+// ---------------------------------------------------------
+// Charger les événements pour le pays + currentDate
+// (appelé quand on change de date dans le panel)
+// ---------------------------------------------------------
+async function loadEvents(country) {
+    const eventsContainer = document.getElementById("events");
+
+    if (!currentDate) {
+        eventsContainer.textContent = "Aucune date sélectionnée.";
+        return;
+    }
+
+    eventsContainer.innerHTML = "Chargement...";
+
+    const resp = await fetch(
+        `/api/countries/${encodeURIComponent(
+            country
+        )}/events?date=${currentDate}`
+    );
+
+    if (!resp.ok) {
+        eventsContainer.textContent = "Erreur de chargement.";
+        return;
+    }
+
+    const data = await resp.json();
+    renderEvents(data);
+}
+
+// ---------------------------------------------------------
 // Init
 // ---------------------------------------------------------
 async function init() {
     initMap();
     await loadCountryData();
     await loadTimeline();
-    await loadCountries();
+    await loadActiveCountries();
 }
 
 window.addEventListener("load", init);

@@ -321,6 +321,25 @@ a:hover,
                 text-decoration-color 0.15s ease;
 }
 
+/* Backdrop du panneau latéral */
+#sidepanel-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* fond sombre */
+    display: none; /* caché par défaut */
+    z-index: 900;  /* juste sous le panneau */
+}
+
+/* Quand le panneau est ouvert sur PC seulement */
+@media (min-width: 769px) {
+    #sidepanel.visible ~ #sidepanel-backdrop {
+        display: block;
+    }
+}
+
 /* ---------- Responsive mobile ---------- */
 @media (max-width: 768px) {
 
