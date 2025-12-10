@@ -30,6 +30,10 @@ jobs:
           TG_SESSION: ${{ secrets.TG_SESSION }}
 
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          run: |
+              if [ -z "$DB_URL" ]; then echo "DB_URL manquant"; else echo "DB_URL OK"; fi
+              if [ -z "$OPENAI_API_KEY" ]; then echo "OPENAI_API_KEY manquant"; else echo "OPENAI_API_KEY OK"; fi
+
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
 
           DATABASE_URL: ${{ secrets.DB_URL }}
