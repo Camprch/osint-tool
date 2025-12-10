@@ -321,6 +321,80 @@ a:hover,
                 text-decoration-color 0.15s ease;
 }
 
+/* ---------- Responsive mobile ---------- */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden; /* évite que la page déborde horizontalement */
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    /* Timeline : full width, bien contenue */
+    #timeline-container {
+        position: static;
+        transform: none;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        box-sizing: border-box;
+    }
+
+    #timeline-container select {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+        font-size: 14px;
+    }
+
+    /* Sidepanel : totalement caché sans clic, plein écran après clic */
+
+    #sidepanel {
+        position: fixed;  /* on s’assure qu’il couvre bien tout quand il est ouvert */
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        width: 100%;
+        max-width: 100%;
+
+        box-sizing: border-box;
+
+        /* fermé : complètement en dehors de l’écran à droite */
+        transform: translateX(100%);
+    }
+
+    #sidepanel.visible {
+        /* ouvert : complètement visible, aucune partie masquée à gauche */
+        transform: translateX(0);
+    }
+
+    /* La carte prend la hauteur restante malgré le header plus haut */
+    #map {
+        height: calc(100vh - 110px);
+    }
+
+    /* Attribution Leaflet légèrement décalée mais pas énorme */
+    .leaflet-bottom.leaflet-right {
+        right: 10px;
+    }
+}
+
 .evt-link a:hover {
     transform: translateY(-1px);
     filter: brightness(1.2);
