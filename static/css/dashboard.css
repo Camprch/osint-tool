@@ -1,3 +1,9 @@
+/* Désactive le scroll du body quand le panneau latéral est ouvert sur mobile */
+body.no-scroll {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100vw;
+}
 /* ---------- Base ---------- */
 
 body {

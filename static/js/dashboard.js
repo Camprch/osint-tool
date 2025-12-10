@@ -273,11 +273,21 @@ async function openSidePanel(country) {
     const panel = document.getElementById("sidepanel");
     panel.classList.add("visible");
 
+    // Désactive le scroll du body sur mobile quand le panneau est ouvert
+    if (IS_MOBILE) {
+        document.body.classList.add("no-scroll");
+    }
+
     await loadLatestEvents(country);
 }
 
 document.getElementById("close-panel").addEventListener("click", () => {
     document.getElementById("sidepanel").classList.remove("visible");
+
+    // Réactive le scroll du body sur mobile quand le panneau est fermé
+    if (IS_MOBILE) {
+        document.body.classList.remove("no-scroll");
+    }
 });
 
 // Fermer le panneau en cliquant sur le fond (PC seulement)
