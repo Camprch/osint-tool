@@ -1,9 +1,16 @@
 # app/config.py
 from functools import lru_cache
-from pydantic_settings import BaseSettings 
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    # 🔧 Autoriser des variables en plus dans le .env
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"   # <<< clé de la solution
+    )
+
     openai_api_key: str
     openai_model: str = "gpt-4o-mini"
 
@@ -15,10 +22,6 @@ class Settings(BaseSettings):
 
     max_messages_per_channel: int = 50
     batch_size: int = 20
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 
 @lru_cache

@@ -1,9 +1,11 @@
 # app/services/fetch.py
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict
+import os  # 👈 ajouté
 
 from telethon import TelegramClient
 from telethon.errors import UsernameInvalidError, UsernameNotOccupiedError
+from telethon.sessions import StringSession  # 👈 ajouté
 
 from app.config import get_settings
 
@@ -16,11 +18,6 @@ def _parse_sources_env() -> Dict[str, str | None]:
 
     Format attendu :
         SOURCES_TELEGRAM="channel1:label1,channel2:label2,channel3"
-
-    - NE CONTIENT AUCUNE orientation dans le code.
-    - Les labels proviennent EXCLUSIVEMENT du .env.
-    - Le code n’impose ni ne suggère aucun label.
-    - Rien n’est loggé ou affiché.
     """
     raw = (settings.sources_telegram or "").strip()
 
@@ -58,15 +55,6 @@ def _parse_sources_env() -> Dict[str, str | None]:
 async def fetch_raw_messages_24h() -> List[Dict]:
     """
     Récupère les messages des 24 dernières heures (max N par canal).
-    Retourne une liste de dicts bruts :
-    {
-      "source": ...,
-      "channel": ...,
-      "orientation": ...,
-      "text": ...,
-      "date": datetime,
-      "telegram_message_id": int,
-    }
     """
     sources_map = _parse_sources_env()
     if not sources_map:
@@ -76,11 +64,25 @@ async def fetch_raw_messages_24h() -> List[Dict]:
     max_per_channel = settings.max_messages_per_channel
     cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
 
-    client = TelegramClient(
-        settings.telegram_session,
-        settings.telegram_api_id,
-        settings.telegram_api_hash,
-    )
+    # 🔑 Choix de la session :
+    # - si TG_SESSION est présente (GitHub Actions) -> StringSession
+    # - sinon, on utilise le fichier de session local (settings.telegram_session)
+    session_str = os.environ.get("TG_SESSION")
+
+    if session_str:
+        # Mode CI / GitHub Actions
+        client = TelegramClient(
+            StringSession(session_str),
+            settings.telegram_api_id,
+            settings.telegram_api_hash,
+        )
+    else:
+        # Mode local (fichier .session classique)
+        client = TelegramClient(
+            settings.telegram_session,
+            settings.telegram_api_id,
+            settings.telegram_api_hash,
+        )
 
     results: List[Dict] = []
 
@@ -105,7 +107,6 @@ async def fetch_raw_messages_24h() -> List[Dict]:
                 dt = getattr(m, "date", None)
                 if dt is None:
                     continue
-                # dt est normalement timezone-aware (UTC)
                 if dt < cutoff:
                     continue
 
@@ -113,7 +114,6 @@ async def fetch_raw_messages_24h() -> List[Dict]:
                 if not text.strip():
                     continue
 
-                # Source "humaine" : titre du canal ou username
                 real_source = getattr(entity, "title", None) or getattr(entity, "username", chan)
 
                 results.append(
