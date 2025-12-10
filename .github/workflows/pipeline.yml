@@ -36,7 +36,7 @@ jobs:
 
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
 
-          DATABASE_URL: ${{ secrets.DB_URL }}
+          DB_URL: ${{ secrets.DB_URL }}
 
           SOURCES_TELEGRAM: ${{ secrets.SOURCES_TELEGRAM }}
           MAX_MESSAGES_PER_CHANNEL: ${{ secrets.MAX_MESSAGES_PER_CHANNEL }}
