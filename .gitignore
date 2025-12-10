@@ -30,7 +30,6 @@ Thumbs.db
 data/*
 !data/.gitkeep
 *.db
-countries.json
 
 # Logs
 *.log
