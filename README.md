@@ -1,6 +1,6 @@
 ### 🛰️ OSINT Telegram Dashboard
 
-![Description de l’image](static/img/banner_readme.png)
+![Description de l’image](static/img/banner.png)
 
 Ce projet est une application FastAPI permettant de collecter, traduire, enrichir et afficher des événements provenant de sources Telegram sur un planisphère interactif.
 
