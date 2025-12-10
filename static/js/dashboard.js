@@ -5,6 +5,8 @@ let timelineDates = [];
 let currentDate = null;
 let markers = [];
 
+const IS_MOBILE = window.matchMedia("(max-width: 768px)").matches;
+
 // ---------------------------------------------------------
 // Init map
 // ---------------------------------------------------------
@@ -13,6 +15,7 @@ function initMap() {
         worldCopyJump: false,
         minZoom: 2,
         maxZoom: 5,
+        tapTolerance: 30,  
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -39,8 +42,10 @@ function clearMarkers() {
  */
 function markerStyle(count) {
     const n = Math.max(1, count || 1);
-    const minRadius = 5;
-    const maxRadius = 10; // avant tu pouvais monter à 30
+
+    // Rayons différents selon mobile / desktop
+    const minRadius = IS_MOBILE ? 10 : 5;
+    const maxRadius = IS_MOBILE ? 20 : 10;
 
     const maxCount = 30; // adapter si nécessaire
     const ratio = Math.min(n / maxCount, 1);
@@ -60,7 +65,7 @@ function markerStyle(count) {
         color,
         fillColor: color,
         fillOpacity: 0.85,
-        weight: 1,
+        weight: IS_MOBILE ? 2 : 1,  // un léger bord plus épais sur mobile
     };
 }
 
