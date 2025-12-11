@@ -155,20 +155,41 @@ async function loadActiveCountries() {
         }
 
         const style = markerStyle(count);
-        const marker = L.circleMarker([lat, lon], style);
+        // Crée un cercle invisible mais interactif pour agrandir la zone de survol
+        const interactiveCircle = L.circle([lat, lon], {
+            radius: style.radius * 20000, // rayon en mètres, ajuster si besoin
+            color: 'transparent',
+            fillColor: 'transparent',
+            fillOpacity: 0,
+            weight: 0,
+            interactive: true,
+            pane: 'markerPane',
+        });
 
+        const marker = L.circleMarker([lat, lon], style);
         marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
 
         const baseRadius = style.radius;
-        marker.on("mouseover", function () {
-            this.setStyle({ radius: baseRadius * 1.15 });
+        interactiveCircle.on("mouseover", function (e) {
+            marker.setStyle({ radius: baseRadius * 1.15 });
+            if (!IS_MOBILE) {
+                marker.openPopup();
+            }
         });
-        marker.on("mouseout", function () {
-            this.setStyle({ radius: baseRadius });
+        interactiveCircle.on("mouseout", function (e) {
+            marker.setStyle({ radius: baseRadius });
+            if (!IS_MOBILE) {
+                marker.closePopup();
+            }
         });
 
-        marker.on("click", () => openSidePanel(name));
+        if (IS_MOBILE) {
+            interactiveCircle.on("click", () => marker.openPopup());
+        }
 
+        interactiveCircle.on("click", () => openSidePanel(name));
+
+        interactiveCircle.addTo(map);
         marker.addTo(map);
         markersByCountry[name] = marker;
     });

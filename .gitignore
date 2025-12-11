@@ -39,3 +39,6 @@ data/*
 
 # Cache
 .cache/
+
+# Outils dev
+cmd.txt
