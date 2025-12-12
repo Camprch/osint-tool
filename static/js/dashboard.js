@@ -44,9 +44,10 @@ function clearMarkers() {
 function markerStyle(count) {
     const n = Math.max(1, count || 1);
 
-    // Rayons différents selon mobile / desktop
-    const minRadius = IS_MOBILE ? 10 : 5;
-    const maxRadius = IS_MOBILE ? 20 : 10;
+
+    // Rayons différents selon mobile / desktop (plus petits qu'avant)
+    const minRadius = IS_MOBILE ? 8 : 4;
+    const maxRadius = IS_MOBILE ? 13 : 7; // taille max réduite
 
     const maxCount = 30; // adapter si nécessaire
     const ratio = Math.min(n / maxCount, 1);
@@ -155,9 +156,10 @@ async function loadActiveCountries() {
         }
 
         const style = markerStyle(count);
-        // Crée un cercle invisible mais interactif pour agrandir la zone de survol
+        // Zone invisible cliquable plus grande (PC et mobile)
+        const toleranceMultiplier = IS_MOBILE ? 35000 : 35000; // augmenté pour tous
         const interactiveCircle = L.circle([lat, lon], {
-            radius: style.radius * 20000, // rayon en mètres, ajuster si besoin
+            radius: style.radius * toleranceMultiplier, // rayon en mètres, plus large
             color: 'transparent',
             fillColor: 'transparent',
             fillOpacity: 0,
@@ -167,7 +169,10 @@ async function loadActiveCountries() {
         });
 
         const marker = L.circleMarker([lat, lon], style);
-        marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
+        // Sur mobile, ne pas afficher la popup, ouvrir direct le panneau
+        if (!IS_MOBILE) {
+            marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
+        }
 
         const baseRadius = style.radius;
         interactiveCircle.on("mouseover", function (e) {
@@ -183,11 +188,12 @@ async function loadActiveCountries() {
             }
         });
 
+        // Sur mobile, clic = panneau direct, pas de popup
         if (IS_MOBILE) {
-            interactiveCircle.on("click", () => marker.openPopup());
+            interactiveCircle.on("click", () => openSidePanel(name));
+        } else {
+            interactiveCircle.on("click", () => openSidePanel(name));
         }
-
-        interactiveCircle.on("click", () => openSidePanel(name));
 
         interactiveCircle.addTo(map);
         marker.addTo(map);
