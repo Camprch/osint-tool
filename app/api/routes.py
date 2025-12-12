@@ -1,8 +1,10 @@
 # app/api/routes.py
 from datetime import date, datetime, timedelta
 from typing import List, Optional, Dict, Tuple
+import json
+import os
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session, select
 
@@ -52,6 +54,19 @@ class CountryEventsResponse(BaseModel):
     date: date
     country: str
     zones: List[ZoneEvents]
+
+
+# Fonction utilitaire pour charger les alias depuis countries.json et normaliser les noms de pays
+def normalize_country_name(name: str, aliases: dict) -> str:
+    if not name:
+        return name
+    return aliases.get(name.strip(), name.strip())
+
+# Charger les alias une seule fois au démarrage
+COUNTRIES_JSON_PATH = os.path.join(os.path.dirname(__file__), '../../static/data/countries.json')
+with open(COUNTRIES_JSON_PATH, encoding='utf-8') as f:
+    _countries_data = json.load(f)
+    COUNTRY_ALIASES = _countries_data.get('aliases', {})
 
 
 @router.get("/dates", response_model=DatesResponse)
@@ -110,13 +125,14 @@ def get_active_countries(
         country = country.strip()
         if not country:
             continue
-
+        # Normalisation via alias
+        norm_country = normalize_country_name(country, COUNTRY_ALIASES)
         d = created_at.date()
-        if country not in stats:
-            stats[country] = {"count": 0, "last_date": d}
-        stats[country]["count"] += 1
-        if d > stats[country]["last_date"]:
-            stats[country]["last_date"] = d
+        if norm_country not in stats:
+            stats[norm_country] = {"count": 0, "last_date": d}
+        stats[norm_country]["count"] += 1
+        if d > stats[norm_country]["last_date"]:
+            stats[norm_country]["last_date"] = d
 
     result = [
         CountryStatus(
