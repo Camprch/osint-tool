@@ -16,7 +16,7 @@ function initMap() {
     map = L.map("map", {
         worldCopyJump: true, // n'affiche qu'une seule copie du monde
         minZoom: 2,
-        maxZoom: 5,
+        maxZoom: 8,
         tapTolerance: 30,
     }).setView([20, 0], 2);
 
@@ -161,6 +161,16 @@ async function loadActiveCountries() {
     const missing = [];
     const alert = document.getElementById("dashboard-alert");
 
+    const getTolerance = () => {
+        // Plus le zoom est élevé, plus la tolérance est faible
+        // (valeurs à ajuster selon besoin)
+        const zoom = map.getZoom();
+        if (zoom >= 5) return 2000;
+        if (zoom >= 4) return 6000;
+        if (zoom >= 3) return 15000;
+        return 30000;
+    };
+
     countries.forEach((c) => {
         const name = c.country;
         const count = c.events_count;
@@ -183,10 +193,10 @@ async function loadActiveCountries() {
         }
 
         const style = markerStyle(count);
-        // Zone invisible cliquable plus grande (PC et mobile)
-        const toleranceMultiplier = IS_MOBILE ? 35000 : 35000; // augmenté pour tous
-        const interactiveCircle = L.circle([lat, lon], {
-            radius: style.radius * toleranceMultiplier, // rayon en mètres, plus large
+        // Zone invisible cliquable en pixels (circleMarker)
+        const clickableRadius = style.radius * 2.5; // 2.5x la taille de la pastille
+        const interactiveCircle = L.circleMarker([lat, lon], {
+            radius: clickableRadius,
             color: 'transparent',
             fillColor: 'transparent',
             fillOpacity: 0,
@@ -201,17 +211,16 @@ async function loadActiveCountries() {
             marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
         }
 
-        const baseRadius = style.radius;
         interactiveCircle.on("mouseover", function (e) {
-            marker.setStyle({ radius: baseRadius * 1.15 });
+            marker.setStyle({ radius: style.radius * 1.15 });
             if (!IS_MOBILE) {
-                marker.openPopup();
+                marker.openPopup && marker.openPopup();
             }
         });
         interactiveCircle.on("mouseout", function (e) {
-            marker.setStyle({ radius: baseRadius });
+            marker.setStyle({ radius: style.radius });
             if (!IS_MOBILE) {
-                marker.closePopup();
+                marker.closePopup && marker.closePopup();
             }
         });
 
