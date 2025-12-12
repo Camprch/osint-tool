@@ -3,20 +3,24 @@ from contextlib import contextmanager
 from pathlib import Path
 import os
 
+
 from sqlmodel import SQLModel, create_engine, Session
 
-# 1) On essaie de lire la chaîne de connexion depuis l'environnement
-#    On supporte d'abord DATABASE_URL, puis DB_URL (ton .env actuel)
-env_db_url = os.getenv("DATABASE_URL") or os.getenv("DB_URL")
+# Nouvelle logique :
+# 1. Si pas de db locale -> on regarde DB_URL
+# 2. Si pas de DB_URL -> on crée une db locale
+DB_PATH = Path("data/osint.db")
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-if env_db_url:
-    # Prod / CI : Neon, Render, etc.
-    DATABASE_URL = env_db_url
-    is_sqlite = DATABASE_URL.startswith("sqlite")
+if not DB_PATH.exists():
+    db_url = os.getenv("DB_URL")
+    if db_url:
+        DATABASE_URL = db_url
+        is_sqlite = DATABASE_URL.startswith("sqlite")
+    else:
+        DATABASE_URL = f"sqlite:///{DB_PATH}"
+        is_sqlite = True
 else:
-    # Dev local : fallback sur ton SQLite comme avant
-    DB_PATH = Path("data/osint.db")
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     DATABASE_URL = f"sqlite:///{DB_PATH}"
     is_sqlite = True
 

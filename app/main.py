@@ -1,6 +1,12 @@
 # app/main.py
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
+from app.database import init_db
+init_db()
+
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
