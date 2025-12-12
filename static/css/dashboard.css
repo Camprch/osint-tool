@@ -508,9 +508,9 @@ a:hover,
 
 @media (max-width: 768px) {
     #sidepanel-header-row {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 4px;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 12px;
     }
     #timeline-container-panel select {
         appearance: none;
