@@ -331,7 +331,7 @@ function renderEvents(data) {
 // ---------------------------------------------------------
 async function openSidePanel(normCountry) {
     currentCountry = normCountry;
-    document.getElementById("panel-country-name").textContent = normCountry;
+    document.getElementById("panel-country-text").textContent = normCountry;
 
     // Synchronise le selecteur panel sur la date globale courante
     const selectPanel = document.getElementById("timeline-panel");
