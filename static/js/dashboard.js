@@ -172,29 +172,24 @@ async function loadActiveCountries() {
     };
 
     countries.forEach((c) => {
-        const name = c.country;
+        const normName = c.country; // déjà normalisé côté backend
         const count = c.events_count;
 
-        let coordKey = name;
-        if (!(coordKey in countryCoords) && name in countryAliases) {
-            coordKey = countryAliases[name];
-        }
-
-        if (!(coordKey in countryCoords)) {
-            missing.push(name);
+        if (!(normName in countryCoords)) {
+            missing.push(normName);
             return;
         }
 
-        const [lat, lon] = countryCoords[coordKey];
+        const [lat, lon] = countryCoords[normName];
 
         // On évite les doublons : une seule pastille par pays
-        if (markersByCountry[name]) {
+        if (markersByCountry[normName]) {
             return;
         }
 
         const style = markerStyle(count);
         // Zone invisible cliquable en pixels (circleMarker)
-        const clickableRadius = style.radius * 2.5; // 2.5x la taille de la pastille
+        const clickableRadius = style.radius * 2.5;
         const interactiveCircle = L.circleMarker([lat, lon], {
             radius: clickableRadius,
             color: 'transparent',
@@ -206,9 +201,8 @@ async function loadActiveCountries() {
         });
 
         const marker = L.circleMarker([lat, lon], style);
-        // Sur mobile, ne pas afficher la popup, ouvrir direct le panneau
         if (!IS_MOBILE) {
-            marker.bindPopup(`<b>${name}</b><br>Événements : ${count}`);
+            marker.bindPopup(`<b>${normName}</b><br>Événements : ${count}`);
         }
 
         interactiveCircle.on("mouseover", function (e) {
@@ -224,16 +218,12 @@ async function loadActiveCountries() {
             }
         });
 
-        // Sur mobile, clic = panneau direct, pas de popup
-        if (IS_MOBILE) {
-            interactiveCircle.on("click", () => openSidePanel(name));
-        } else {
-            interactiveCircle.on("click", () => openSidePanel(name));
-        }
+        // Clic = panneau direct, clé normalisée
+        interactiveCircle.on("click", () => openSidePanel(normName));
 
         interactiveCircle.addTo(map);
         marker.addTo(map);
-        markersByCountry[name] = marker;
+        markersByCountry[normName] = marker;
     });
 
     if (alert) {
@@ -339,9 +329,9 @@ function renderEvents(data) {
 // ---------------------------------------------------------
 // Sidepanel : ouverture + chargement des événements
 // ---------------------------------------------------------
-async function openSidePanel(country) {
-    currentCountry = country;
-    document.getElementById("panel-country-name").textContent = country;
+async function openSidePanel(normCountry) {
+    currentCountry = normCountry;
+    document.getElementById("panel-country-name").textContent = normCountry;
 
     // Synchronise le selecteur panel sur la date globale courante
     const selectPanel = document.getElementById("timeline-panel");
@@ -353,13 +343,12 @@ async function openSidePanel(country) {
     const panel = document.getElementById("sidepanel");
     panel.classList.add("visible");
 
-    // Désactive le scroll du body sur mobile quand le panneau est ouvert
     if (IS_MOBILE) {
         document.body.classList.add("no-scroll");
     }
 
     // Charge les événements pour la date courante (déjà synchronisée)
-    await loadEvents(country);
+    await loadEvents(normCountry);
 }
 
 document.getElementById("close-panel").addEventListener("click", () => {

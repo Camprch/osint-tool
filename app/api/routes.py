@@ -57,16 +57,24 @@ class CountryEventsResponse(BaseModel):
 
 
 # Fonction utilitaire pour charger les alias depuis countries.json et normaliser les noms de pays
-def normalize_country_name(name: str, aliases: dict) -> str:
+def normalize_country_names(name: str, aliases: dict) -> list:
     if not name:
-        return name
-    return aliases.get(name.strip(), name.strip())
+        return []
+    # Sépare par virgule ou point-virgule, retire espaces
+    names = [n.strip() for n in name.split(',') if n.strip()]
+    result = []
+    for n in names:
+        norm = aliases.get(n, None)
+        if norm:
+            result.append(norm)
+    return result
 
 # Charger les alias une seule fois au démarrage
 COUNTRIES_JSON_PATH = os.path.join(os.path.dirname(__file__), '../../static/data/countries.json')
 with open(COUNTRIES_JSON_PATH, encoding='utf-8') as f:
     _countries_data = json.load(f)
     COUNTRY_ALIASES = _countries_data.get('aliases', {})
+    COUNTRY_COORDS = _countries_data.get('coordinates', {})
 
 
 @router.get("/dates", response_model=DatesResponse)
@@ -125,22 +133,26 @@ def get_active_countries(
         country = country.strip()
         if not country:
             continue
-        # Normalisation via alias
-        norm_country = normalize_country_name(country, COUNTRY_ALIASES)
+        # Multi-pays : normalisation multiple
+        norm_countries = normalize_country_names(country, COUNTRY_ALIASES)
+        if not norm_countries:
+            continue  # ignorer les pays non normalisés
         d = created_at.date()
-        if norm_country not in stats:
-            stats[norm_country] = {"count": 0, "last_date": d}
-        stats[norm_country]["count"] += 1
-        if d > stats[norm_country]["last_date"]:
-            stats[norm_country]["last_date"] = d
+        for norm_country in norm_countries:
+            if norm_country not in stats:
+                stats[norm_country] = {"count": 0, "last_date": d}
+            stats[norm_country]["count"] += 1
+            if d > stats[norm_country]["last_date"]:
+                stats[norm_country]["last_date"] = d
 
+    # Ne garder que les pays qui ont une coordonnée (donc normalisés)
     result = [
         CountryStatus(
             country=c,
             events_count=v["count"],
             last_date=v["last_date"],
         )
-        for c, v in stats.items()
+        for c, v in stats.items() if c in COUNTRY_COORDS
     ]
     # tri optionnel : pays les plus actifs en premier
     result.sort(key=lambda c: c.events_count, reverse=True)
@@ -158,27 +170,39 @@ def get_country_latest_events(
     Liste les événements pour un pays à la date la plus récente (sur created_at).
     """
     # 1) On cherche la dernière date pour ce pays
+    # On normalise l'identifiant reçu
+    norm_country = country
+    if not norm_country or norm_country not in COUNTRY_COORDS:
+        raise HTTPException(status_code=404, detail="Pays non normalisé ou non géoréférencé")
+
+    # On cherche tous les messages qui contiennent ce pays dans la liste normalisée
+    # (multi-pays)
     stmt_last = (
-        select(Message.created_at)
-        .where(Message.country == country)
+        select(Message.created_at, Message.country)
         .order_by(Message.created_at.desc())
     )
-    last_created_at = session.exec(stmt_last).first()
-    if not last_created_at:
+    rows = session.exec(stmt_last).all()
+    last_date = None
+    for created_at, raw_country in rows:
+        norm_countries = normalize_country_names(raw_country, COUNTRY_ALIASES)
+        if norm_country in norm_countries:
+            last_date = created_at
+            break
+    if not last_date:
         raise HTTPException(status_code=404, detail="Aucun événement pour ce pays")
 
-    target_date = last_created_at.date()
+    target_date = last_date.date()
 
-    # 2) On reprend la logique de get_country_events
     start_dt = datetime.combine(target_date, datetime.min.time())
     end_dt = datetime.combine(target_date, datetime.max.time())
 
     stmt = select(Message).where(
         Message.created_at >= start_dt,
         Message.created_at <= end_dt,
-        Message.country == country,
     )
     msgs = session.exec(stmt).all()
+    # Filtrer pour ne garder que ceux qui contiennent ce pays
+    msgs = [m for m in msgs if norm_country in normalize_country_names(m.country, COUNTRY_ALIASES)]
 
     buckets: Dict[Tuple[Optional[str], Optional[str]], List[Message]] = {}
     for m in msgs:
@@ -276,15 +300,21 @@ def get_country_events(
     """
     Liste des événements pour un pays + date (groupés par région / location).
     """
+    # On utilise la même logique de normalisation/multi-pays que latest-events
+    norm_country = country
+    if not norm_country or norm_country not in COUNTRY_COORDS:
+        raise HTTPException(status_code=404, detail="Pays non normalisé ou non géoréférencé")
+
     start_dt = datetime.combine(target_date, datetime.min.time())
     end_dt = datetime.combine(target_date, datetime.max.time())
 
     stmt = select(Message).where(
         Message.created_at >= start_dt,
         Message.created_at <= end_dt,
-        Message.country == country,
     )
     msgs = session.exec(stmt).all()
+    # Filtrer pour ne garder que ceux qui contiennent ce pays
+    msgs = [m for m in msgs if norm_country in normalize_country_names(m.country, COUNTRY_ALIASES)]
 
     buckets: Dict[Tuple[Optional[str], Optional[str]], List[Message]] = {}
     for m in msgs:

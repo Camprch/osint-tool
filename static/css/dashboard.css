@@ -82,6 +82,19 @@ header h1 {
     margin-top: 0;
 }
 
+#sidepanel-events-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+#sidepanel-events-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 #timeline-container-panel select {
     padding: 6px 14px;
     background: #1a1f24;
