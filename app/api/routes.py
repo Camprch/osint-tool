@@ -74,22 +74,33 @@ def get_available_dates(session: Session = Depends(get_db)):
 
     return DatesResponse(dates=dates_list)
 
+
 @router.get("/countries/active", response_model=List[CountryStatus])
 def get_active_countries(
     days: int = Query(30, ge=1),
+    date_filter: Optional[date] = Query(None, alias="date"),
     session: Session = Depends(get_db),
 ):
     """
-    Renvoie les pays qui ont des messages dans les X derniers jours,
-    avec le nombre d'événements et la dernière date d'activité.
+    Renvoie les pays qui ont des messages à une date précise (si 'date' fourni),
+    sinon dans les X derniers jours, avec le nombre d'événements et la dernière date d'activité.
     """
-    now = datetime.utcnow()
-    start_dt = now - timedelta(days=days)
-
-    stmt = select(Message.country, Message.created_at).where(
-        Message.created_at >= start_dt,
-        Message.country.is_not(None),
-    )
+    if date_filter:
+        # Filtre exact sur la date
+        start_dt = datetime.combine(date_filter, datetime.min.time())
+        end_dt = datetime.combine(date_filter, datetime.max.time())
+        stmt = select(Message.country, Message.created_at).where(
+            Message.created_at >= start_dt,
+            Message.created_at <= end_dt,
+            Message.country.is_not(None),
+        )
+    else:
+        now = datetime.utcnow()
+        start_dt = now - timedelta(days=days)
+        stmt = select(Message.country, Message.created_at).where(
+            Message.created_at >= start_dt,
+            Message.country.is_not(None),
+        )
     rows = session.exec(stmt).all()
 
     stats: Dict[str, Dict[str, object]] = {}

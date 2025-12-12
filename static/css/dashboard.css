@@ -15,13 +15,14 @@ body {
 
 /* ---------- Header + titre + date centrée ---------- */
 
+
 header {
     padding: 10px 20px;
     background: #11161c;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 32px;
     position: relative;
 }
 
@@ -37,14 +38,19 @@ header h1 {
     font-size: 24px;
 }
 
-/* Conteneur du select de date centré dans le header */
-#timeline-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+
+
+/* Conteneur du select de date à côté du titre (header) */
+#timeline-container-global {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 16px;
+    position: static;
+    transform: none;
 }
 
-#timeline-container select {
+#timeline-container-global select {
     padding: 6px 14px;
     background: #1a1f24;
     border: 1px solid #444;
@@ -57,9 +63,42 @@ header h1 {
                 border-color 0.15s ease,
                 transform 0.1s ease,
                 box-shadow 0.15s ease;
+    min-width: 120px;
 }
 
-#timeline-container select:hover {
+#timeline-container-global select:hover {
+    background: #222832;
+    border-color: #666;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Conteneur du select de date dans le panneau latéral */
+#timeline-container-panel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    margin-top: 0;
+}
+
+#timeline-container-panel select {
+    padding: 6px 14px;
+    background: #1a1f24;
+    border: 1px solid #444;
+    color: #eee;
+    border-radius: 999px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.15s ease,
+                border-color 0.15s ease,
+                transform 0.1s ease,
+                box-shadow 0.15s ease;
+    min-width: 120px;
+}
+
+#timeline-container-panel select:hover {
     background: #222832;
     border-color: #666;
     transform: translateY(-1px);
@@ -347,99 +386,93 @@ a:hover,
 }
 
 /* ---------- Responsive mobile ---------- */
-@media (max-width: 768px) {
 
+@media (max-width: 768px) {
     html,
     body {
-        overflow-x: hidden; /* évite que la page déborde horizontalement */
+        overflow-x: hidden;
     }
-
     body {
         font-size: 14px;
     }
-
     header {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
         padding: 8px 12px;
     }
-
     header h1 {
         font-size: 20px;
     }
-
-     /* Timeline dans le sidepanel : propre et compact */
-    #timeline-container {
+    #timeline-container-global {
         width: 100%;
         box-sizing: border-box;
-        margin-bottom: 12px;
-        position: relative;      /* pour le chevron */
-        display: block;
-    }
-
-    #timeline-container label {
-        display: block;
-        font-size: 13px;
         margin-bottom: 4px;
-        opacity: 0.8;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: static;
     }
-
-    /* le vrai select */
-    #timeline {
+    #timeline-container-global label {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-bottom: 0;
+    }
+    #timeline-container-global select {
         width: 100%;
         max-width: 100%;
-        display: block;
         font-size: 14px;
         padding: 8px 10px;
         border-radius: 8px;
-        background-color: #111827;   /* gris très foncé */
-        color: #f9fafb;              /* texte clair */
-        border: 1px solid #374151;   /* bord discret */
-        appearance: none;            /* vire le style iOS moche */
+        background-color: #111827;
+        color: #f9fafb;
+        border: 1px solid #374151;
+        appearance: none;
+        min-width: 120px;
     }
-
-    /* petit chevron custom à droite */
-    #timeline-container::after {
-        content: "▾";
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 12px;
-        pointer-events: none;
-        opacity: 0.7;
+    #timeline-container-panel {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: static;
     }
-
-    /* Sidepanel : totalement caché sans clic, plein écran après clic */
-
+    #timeline-container-panel label {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-bottom: 0;
+    }
+    #timeline-container-panel select {
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background-color: #111827;
+        color: #f9fafb;
+        border: 1px solid #374151;
+        appearance: none;
+        min-width: 120px;
+    }
     #sidepanel {
-        position: fixed;  /* on s’assure qu’il couvre bien tout quand il est ouvert */
+        position: fixed;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
-
         width: 100%;
         max-width: 100%;
-
         box-sizing: border-box;
-
-        /* fermé : complètement en dehors de l’écran à droite */
         transform: translateX(100%);
     }
-
     #sidepanel.visible {
-        /* ouvert : complètement visible, aucune partie masquée à gauche */
         transform: translateX(0);
     }
-
-    /* La carte prend la hauteur restante malgré le header plus haut */
     #map {
         height: calc(100vh - 110px);
     }
-
-    /* Attribution Leaflet légèrement décalée mais pas énorme */
     .leaflet-bottom.leaflet-right {
         right: 10px;
     }

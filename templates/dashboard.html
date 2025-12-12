@@ -27,11 +27,17 @@
 
 <body>
 
+
+
 <header>
     <h1>
         <span class="logo-icon">🛰️</span>
         OSINT Dashboard
     </h1>
+    <div id="timeline-container-global">
+        <label for="timeline-global">Date :</label>
+        <select id="timeline-global"></select>
+    </div>
 </header>
 
 <div id="dashboard-alert"></div>
@@ -44,11 +50,10 @@
     <h2 id="panel-country-name"></h2>
 
     <div id="sidepanel-content">
-        <div id="timeline-container">
-            <label for="timeline">Date :</label>
-            <select id="timeline"></select>
+        <div id="timeline-container-panel">
+            <label for="timeline-panel">Date :</label>
+            <select id="timeline-panel"></select>
         </div>
-
         <h3>Événements</h3>
         <div id="events"></div>
     </div>

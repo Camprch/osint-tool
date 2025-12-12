@@ -2,7 +2,8 @@ let map;
 let countryCoords = {};
 let countryAliases = {};
 let timelineDates = [];
-let currentDate = null;
+let currentGlobalDate = null;
+let currentPanelDate = null;
 let currentCountry = null;
 let markersByCountry = {};
 
@@ -89,40 +90,66 @@ async function loadTimeline() {
     const data = await resp.json();
     timelineDates = data.dates || [];
 
-    const select = document.getElementById("timeline");
-    if (!select) return;
+    // Global select (header)
+    const selectGlobal = document.getElementById("timeline-global");
+    // Panel select (sidepanel)
+    const selectPanel = document.getElementById("timeline-panel");
 
-    select.innerHTML = "";
-
-    timelineDates.forEach((dateStr) => {
-        const opt = document.createElement("option");
-        opt.value = dateStr;
-        opt.textContent = dateStr;
-        select.appendChild(opt);
-    });
-
-    if (timelineDates.length > 0) {
-        currentDate = timelineDates[0];
-        select.value = currentDate;
-    } else {
-        currentDate = null;
+    // Helper pour remplir un select
+    function fillSelect(select, value) {
+        select.innerHTML = "";
+        const allOpt = document.createElement("option");
+        allOpt.value = "ALL";
+        allOpt.textContent = "Toutes les dates";
+        select.appendChild(allOpt);
+        timelineDates.forEach((dateStr) => {
+            const opt = document.createElement("option");
+            opt.value = dateStr;
+            opt.textContent = dateStr;
+            select.appendChild(opt);
+        });
+        select.value = value || "ALL";
     }
 
-    // Changer la date ne change plus la carte :
-    // on ne recharge que les événements pour le pays sélectionné
-    select.addEventListener("change", () => {
-        currentDate = select.value;
-        if (currentCountry) {
-            loadEvents(currentCountry);
-        }
-    });
+    // Initialisation
+    currentGlobalDate = "ALL";
+    currentPanelDate = "ALL";
+    if (selectGlobal) fillSelect(selectGlobal, currentGlobalDate);
+    if (selectPanel) fillSelect(selectPanel, currentPanelDate);
+
+    // Synchronisation des deux sélecteurs
+    if (selectGlobal && selectPanel) {
+        selectGlobal.addEventListener("change", () => {
+            currentGlobalDate = selectGlobal.value;
+            currentPanelDate = currentGlobalDate;
+            selectPanel.value = currentPanelDate;
+            loadActiveCountries();
+            if (currentCountry) {
+                loadEvents(currentCountry);
+            }
+        });
+        selectPanel.addEventListener("change", () => {
+            currentPanelDate = selectPanel.value;
+            currentGlobalDate = currentPanelDate;
+            selectGlobal.value = currentGlobalDate;
+            loadActiveCountries();
+            if (currentCountry) {
+                loadEvents(currentCountry);
+            }
+        });
+    }
 }
 
 // ---------------------------------------------------------
 // Charger les pays actifs (toutes les pastilles)
 // ---------------------------------------------------------
 async function loadActiveCountries() {
-    const resp = await fetch("/api/countries/active");
+
+    let url = "/api/countries/active";
+    if (currentGlobalDate && currentGlobalDate !== "ALL") {
+        url += `?date=${encodeURIComponent(currentGlobalDate)}`;
+    }
+    const resp = await fetch(url);
     if (!resp.ok) {
         console.error("Erreur /api/countries/active", resp.status);
         return;
@@ -297,6 +324,13 @@ async function openSidePanel(country) {
     currentCountry = country;
     document.getElementById("panel-country-name").textContent = country;
 
+    // Synchronise le selecteur panel sur la date globale courante
+    const selectPanel = document.getElementById("timeline-panel");
+    if (selectPanel && currentGlobalDate) {
+        selectPanel.value = currentGlobalDate;
+        currentPanelDate = currentGlobalDate;
+    }
+
     const panel = document.getElementById("sidepanel");
     panel.classList.add("visible");
 
@@ -305,7 +339,8 @@ async function openSidePanel(country) {
         document.body.classList.add("no-scroll");
     }
 
-    await loadLatestEvents(country);
+    // Charge les événements pour la date courante (déjà synchronisée)
+    await loadEvents(country);
 }
 
 document.getElementById("close-panel").addEventListener("click", () => {
@@ -343,22 +378,22 @@ async function loadLatestEvents(country) {
     const data = await resp.json();
 
     // data.date = date la plus récente pour ce pays
-    currentDate = data.date;
+    currentPanelDate = data.date;
 
-    const select = document.getElementById("timeline");
-    if (select && currentDate) {
+    const select = document.getElementById("timeline-panel");
+    if (select && currentPanelDate) {
         // Si la date la plus récente n'est pas dans la liste, on l'ajoute
         let found = false;
         Array.from(select.options).forEach((opt) => {
-            if (opt.value === currentDate) {
+            if (opt.value === currentPanelDate) {
                 found = true;
             }
         });
         if (!found) {
-            const opt = new Option(currentDate, currentDate);
-            select.add(opt, 0);
+            const opt = new Option(currentPanelDate, currentPanelDate);
+            select.add(opt, 1); // après "Toutes les dates"
         }
-        select.value = currentDate;
+        select.value = currentPanelDate;
     }
 
     renderEvents(data);
@@ -371,25 +406,29 @@ async function loadLatestEvents(country) {
 async function loadEvents(country) {
     const eventsContainer = document.getElementById("events");
 
-    if (!currentDate) {
+    if (!currentPanelDate) {
         eventsContainer.textContent = "Aucune date sélectionnée.";
         return;
     }
 
     eventsContainer.innerHTML = "Chargement...";
 
-    const resp = await fetch(
-        `/api/countries/${encodeURIComponent(
-            country
-        )}/events?date=${currentDate}`
-    );
+    let url, resp, data;
+    if (currentPanelDate === "ALL") {
+        // Si "Toutes les dates" : on affiche la date la plus récente (comme loadLatestEvents)
+        url = `/api/countries/${encodeURIComponent(country)}/latest-events`;
+        resp = await fetch(url);
+    } else {
+        url = `/api/countries/${encodeURIComponent(country)}/events?date=${currentPanelDate}`;
+        resp = await fetch(url);
+    }
 
     if (!resp.ok) {
         eventsContainer.textContent = "Erreur de chargement.";
         return;
     }
 
-    const data = await resp.json();
+    data = await resp.json();
     renderEvents(data);
 }
 
