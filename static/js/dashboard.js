@@ -255,30 +255,25 @@ function renderEvents(data) {
                 "Zone inconnue";
 
             const msgs = zone.messages
-                .map((m) => {
+                .map((m, mIdx) => {
                     const title = m.title || "(Sans titre)";
                     const fullText = m.translated_text || m.preview || "";
-                    const orientation = m.orientation
-                        ? ` • ${m.orientation}`
-                        : "";
-                    const postLink = m.url
-                        ? `<a href="${m.url}" target="_blank">post n° ${m.telegram_message_id}</a>`
-                        : "";
-                    const timeStr = new Date(
-                        m.event_timestamp || m.created_at
-                    ).toLocaleString();
-
+                    const orientation = m.orientation ? ` • ${m.orientation}` : "";
+                    const postLink = m.url ? `<a href="${m.url}" target="_blank">post n° ${m.telegram_message_id}</a>` : "";
+                    const timeStr = new Date(m.event_timestamp || m.created_at).toLocaleString();
                     return `
-                <li class="event">
-                    <div class="evt-title">${title}</div>
-                    <div class="evt-text">${fullText}</div>
+            <li class="event">
+                <div class="evt-title" data-zone="${idx}" data-msg="${mIdx}" style="cursor:pointer;">${title}</div>
+                <div class="evt-text" style="display:none;">
+                    ${fullText}
                     <div class="evt-meta">
                         <span class="evt-source">${m.source}${orientation}</span>
                         <span class="evt-time">${timeStr}</span>
                         <span class="evt-link">${postLink}</span>
                     </div>
-                </li>
-            `;
+                </div>
+            </li>
+        `;
                 })
                 .join("");
 
@@ -309,6 +304,21 @@ function renderEvents(data) {
             if (listEl.style.display === "none") {
                 listEl.style.display = "";
                 btn.textContent = "▼";
+                // Ajout/refresh listeners à chaque ouverture
+                listEl.querySelectorAll('.evt-title').forEach(titleEl => {
+                    if (!titleEl.dataset.listener) {
+                        titleEl.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const text = this.nextElementSibling;
+                            if (text.style.display === "none" || !text.style.display) {
+                                text.style.display = "block";
+                            } else {
+                                text.style.display = "none";
+                            }
+                        });
+                        titleEl.dataset.listener = "1";
+                    }
+                });
             } else {
                 listEl.style.display = "none";
                 btn.textContent = "▶";
