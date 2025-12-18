@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite
+*.db-shm
+*.db-wal
+
+# Env
+.env
+/.env
+.env.local
+.env.dev
+.env.prod
+*.env
+
+# Telethon session
+telegram_session*
+*.session
+
+# Venv
+venv/
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data
+data/*
+!data/.gitkeep
+*.db
+
+# Logs
+*.log
+
+# Byte-compiled
+*.swp
+
+# Cache
+.cache/
+

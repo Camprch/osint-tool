@@ -1,0 +1,5 @@
+cd osint-tool
+source venv/bin/activate
+python tools/init_telegram.py
+python tools/run_pipeline.py
+uvicorn app.main:app --reload

@@ -1,0 +1,909 @@
+{
+  "coordinates": {
+    "🇦🇫 Afghanistan": [33.93911, 67.709953],
+    "🇿🇦 Afrique du Sud": [-30.559482, 22.937506],
+    "🇦🇱 Albanie": [41.153332, 20.168331],
+    "🇩🇿 Algérie": [28.033886, 1.659626],
+    "🇩🇪 Allemagne": [51.165691, 10.451526],
+    "🇦🇩 Andorre": [42.546245, 1.601554],
+    "🇦🇴 Angola": [-11.202692, 17.873887],
+    "🇦🇬 Antigua-et-Barbuda": [17.060816, -61.796428],
+    "🇸🇦 Arabie saoudite": [23.885942, 45.079162],
+    "🇦🇷 Argentine": [-38.416097, -63.616672],
+    "🇦🇲 Arménie": [40.069099, 45.038189],
+    "🇦🇼 Aruba": [12.52111, -69.968338],
+    "🇦🇺 Australie": [-25.274398, 133.775136],
+    "🇦🇹 Autriche": [47.516231, 14.550072],
+    "🇦🇿 Azerbaïdjan": [40.143105, 47.576927],
+
+    "🇧🇸 Bahamas": [25.03428, -77.39628],
+    "🇧🇭 Bahreïn": [25.930414, 50.637772],
+    "🇧🇩 Bangladesh": [23.684994, 90.356331],
+    "🇧🇧 Barbade": [13.193887, -59.543198],
+    "🇧🇪 Belgique": [50.503887, 4.469936],
+    "🇧🇿 Belize": [17.189877, -88.49765],
+    "🇧🇯 Bénin": [9.30769, 2.315834],
+    "🇧🇲 Bermudes": [32.321384, -64.75737],
+    "🇧🇹 Bhoutan": [27.514162, 90.433601],
+    "🇧🇾 Biélorussie": [53.709807, 27.953389],
+    "🇧🇴 Bolivie": [-16.290154, -63.588653],
+    "🇧🇦 Bosnie-Herzégovine": [43.915886, 17.679076],
+    "🇧🇼 Botswana": [-22.328474, 24.684866],
+    "🇧🇷 Brésil": [-14.235004, -51.92528],
+    "🇧🇳 Brunei": [4.535277, 114.727669],
+    "🇧🇬 Bulgarie": [42.733883, 25.48583],
+    "🇧🇫 Burkina Faso": [12.238333, -1.561593],
+    "🇧🇮 Burundi": [-3.373056, 29.918886],
+
+    "🇰🇭 Cambodge": [12.565679, 104.990963],
+    "🇨🇲 Cameroun": [7.369722, 12.354722],
+    "🇨🇦 Canada": [56.130366, -106.346771],
+    "🇨🇻 Cap-Vert": [16.002082, -24.013197],
+    "🇨🇱 Chili": [-35.675147, -71.542969],
+    "🇨🇳 Chine": [35.86166, 104.195397],
+    "🇨🇾 Chypre": [35.126413, 33.429859],
+    "🇨🇴 Colombie": [4.570868, -74.297333],
+    "🇰🇲 Comores": [-11.875001, 43.872219],
+    "🇨🇬 Congo": [-0.228021, 15.827659],
+    "🇨🇩 République démocratique du Congo": [-4.038333, 21.758664],
+    "🇰🇵 Corée du Nord": [40.339852, 127.510093],
+    "🇰🇷 Corée du Sud": [35.907757, 127.766922],
+    "🇨🇷 Costa Rica": [9.748917, -83.753428],
+    "🇨🇮 Côte d’Ivoire": [7.539989, -5.54708],
+    "🇭🇷 Croatie": [45.1, 15.2],
+    "🇨🇺 Cuba": [21.521757, -77.781167],
+    "🇨🇼 Curaçao": [12.16957, -68.99002],
+
+    "🇩🇰 Danemark": [56.26392, 9.501785],
+    "🇩🇯 Djibouti": [11.825138, 42.590275],
+    "🇩🇲 Dominique": [15.414999, -61.370976],
+    "🇪🇬 Égypte": [26.820553, 30.802498],
+    "🇦🇪 Émirats arabes unis": [23.424076, 53.847818],
+    "🇪🇨 Équateur": [-1.831239, -78.183406],
+    "🇪🇷 Érythrée": [15.179384, 39.782334],
+    "🇪🇸 Espagne": [40.463667, -3.74922],
+    "🇪🇪 Estonie": [58.595272, 25.013607],
+    "🇸🇿 Eswatini": [-26.522503, 31.465866],
+    "🇫🇲 États fédérés de Micronésie": [7.425554, 150.550812],
+    "🇺🇸 États-Unis": [37.09024, -95.712891],
+    "🇪🇹 Éthiopie": [9.145, 40.489673],
+    "🇪🇺 Europe": [54.5260, 15.2551],
+
+    "🇫🇯 Fidji": [-16.578193, 179.414413],
+    "🇫🇮 Finlande": [61.92411, 25.748151],
+    "🇫🇷 France": [46.227638, 2.213749],
+
+    "🇬🇦 Gabon": [-0.803689, 11.609444],
+    "🇬🇲 Gambie": [13.443182, -15.310139],
+    "🇬🇪 Géorgie": [42.315407, 43.356892],
+    "🇬🇭 Ghana": [7.946527, -1.023194],
+    "🇬🇮 Gibraltar": [36.140751, -5.353585],
+    "🇬🇷 Grèce": [39.074208, 21.824312],
+    "🇬🇩 Grenade": [12.262776, -61.604171],
+    "🇬🇱 Groenland": [71.706936, -42.604303],
+    "🇬🇵 Guadeloupe": [16.265, -61.551],
+    "🇬🇹 Guatemala": [15.783471, -90.230759],
+    "🇬🇳 Guinée": [9.945587, -9.696645],
+    "🇬🇼 Guinée-Bissau": [11.803749, -15.180413],
+    "🇬🇶 Guinée équatoriale": [1.650801, 10.267895],
+    "🇬🇾 Guyana": [4.860416, -58.93018],
+    "🇬🇫 Guyane française": [3.933889, -53.125782],
+
+    "🇭🇹 Haïti": [18.971187, -72.285215],
+    "🇭🇳 Honduras": [15.199999, -86.241905],
+    "🇭🇺 Hongrie": [47.162494, 19.503304],
+    "🇭🇰 Hong Kong": [22.319303, 114.169361],
+
+    "🇲🇭 Îles Marshall": [7.131474, 171.184478],
+    "🇸🇧 Îles Salomon": [-9.64571, 160.156194],
+    "🇰🇾 Îles Caïmans": [19.3133, -81.2546],
+    "🇻🇬 Îles Vierges britanniques": [18.420695, -64.639968],
+    "🇻🇮 Îles Vierges des États-Unis": [18.335765, -64.896335],
+    "🇫🇴 Îles Féroé": [61.892635, -6.911806],
+    "🇮🇳 Inde": [20.593684, 78.96288],
+    "🇮🇩 Indonésie": [-0.789275, 113.921327],
+    "🇮🇶 Irak": [33.223191, 43.679291],
+    "🇮🇷 Iran": [32.427908, 53.688046],
+    "🇮🇪 Irlande": [53.41291, -8.24389],
+    "🇮🇸 Islande": [64.963051, -19.020835],
+    "🇮🇱 Israël": [31.046051, 34.851612],
+    "🇮🇹 Italie": [41.87194, 12.56738],
+
+    "🇯🇲 Jamaïque": [18.109581, -77.297508],
+    "🇯🇵 Japon": [36.204824, 138.252924],
+    "🇯🇴 Jordanie": [30.585164, 36.238414],
+
+    "🇰🇿 Kazakhstan": [48.019573, 66.923684],
+    "🇰🇪 Kenya": [-0.023559, 37.906193],
+    "🇰🇬 Kirghizistan": [41.20438, 74.766098],
+    "🇰🇮 Kiribati": [-3.370417, -168.734039],
+    "🇽🇰 Kosovo": [42.602636, 20.902977],
+    "🇰🇼 Koweït": [29.31166, 47.481766],
+
+    "🇱🇦 Laos": [19.85627, 102.495496],
+    "🇱🇸 Lesotho": [-29.609988, 28.233608],
+    "🇱🇻 Lettonie": [56.879635, 24.603189],
+    "🇱🇧 Liban": [33.854721, 35.862285],
+    "🇱🇷 Liberia": [6.428055, -9.429499],
+    "🇱🇾 Libye": [26.3351, 17.228331],
+    "🇱🇮 Liechtenstein": [47.166, 9.555373],
+    "🇱🇹 Lituanie": [55.169438, 23.881275],
+    "🇱🇺 Luxembourg": [49.815273, 6.129583],
+
+    "🇲🇴 Macao": [22.198745, 113.543873],
+    "🇲🇬 Madagascar": [-18.766947, 46.869107],
+    "🇲🇾 Malaisie": [4.210484, 101.975766],
+    "🇲🇼 Malawi": [-13.254308, 34.301525],
+    "🇲🇻 Maldives": [3.202778, 73.22068],
+    "🇲🇱 Mali": [17.570692, -3.996166],
+    "🇲🇹 Malte": [35.937496, 14.375416],
+    "🇲🇦 Maroc": [31.791702, -7.09262],
+    "🇲🇶 Martinique": [14.641528, -61.024174],
+    "🇲🇺 Maurice": [-20.348404, 57.552152],
+    "🇲🇷 Mauritanie": [21.00789, -10.940835],
+    "🇾🇹 Mayotte": [-12.8275, 45.166244],
+    "🇲🇽 Mexique": [23.634501, -102.552784],
+    "🇲🇩 Moldavie": [47.411631, 28.369885],
+    "🇲🇨 Monaco": [43.750298, 7.412841],
+    "🇲🇳 Mongolie": [46.862496, 103.846656],
+    "🇲🇪 Monténégro": [42.708678, 19.37439],
+    "🇲🇿 Mozambique": [-18.665695, 35.529562],
+    "🇲🇲 Myanmar": [21.913965, 95.956223],
+
+    "🇳🇦 Namibie": [-22.95764, 18.49041],
+    "🇳🇷 Nauru": [-0.522778, 166.931503],
+    "🇳🇵 Népal": [28.394857, 84.124008],
+    "🇳🇮 Nicaragua": [12.865416, -85.207229],
+    "🇳🇪 Niger": [17.607789, 8.081666],
+    "🇳🇬 Nigeria": [9.081999, 8.675277],
+    "🇳🇴 Norvège": [60.472024, 8.468946],
+    "🇳🇨 Nouvelle-Calédonie": [-20.904305, 165.618042],
+    "🇳🇿 Nouvelle-Zélande": [-40.900557, 174.885971],
+
+    "🇴🇲 Oman": [21.512583, 55.923255],
+    "🇺🇬 Ouganda": [1.373333, 32.290275],
+    "🇺🇿 Ouzbékistan": [41.377491, 64.585262],
+
+    "🇵🇰 Pakistan": [30.375321, 69.345116],
+    "🇵🇼 Palaos": [7.51498, 134.58252],
+    "🇵🇸 Palestine": [31.952162, 35.233154],
+    "🇵🇦 Panama": [8.537981, -80.782127],
+    "🇵🇬 Papouasie-Nouvelle-Guinée": [-6.314993, 143.95555],
+    "🇵🇾 Paraguay": [-23.442503, -58.443832],
+    "🇳🇱 Pays-Bas": [52.132633, 5.291266],
+    "🇵🇪 Pérou": [-9.189967, -75.015152],
+    "🇵🇭 Philippines": [12.879721, 121.774017],
+    "🇵🇱 Pologne": [51.919438, 19.145136],
+    "🇵🇫 Polynésie française": [-17.679742, -149.406843],
+    "🇵🇷 Porto Rico": [18.220833, -66.590149],
+    "🇵🇹 Portugal": [39.399872, -8.224454],
+
+    "🇶🇦 Qatar": [25.354826, 51.183884],
+
+    "🇨🇫 République centrafricaine": [6.611111, 20.939444],
+    "🇩🇴 République dominicaine": [18.735693, -70.162651],
+    "🇨🇿 République tchèque": [49.817492, 15.472962],
+    "🇷🇪 La Réunion": [-21.115141, 55.536384],
+    "🇷🇴 Roumanie": [45.943161, 24.96676],
+    "🇬🇧 Royaume-Uni": [55.378051, -3.435973],
+    "🇷🇺 Russie": [61.52401, 105.318756],
+    "🇷🇼 Rwanda": [-1.940278, 29.873888],
+
+    "🌍 Sahara occidental": [24.215527, -12.885834],
+    "🇰🇳 Saint-Kitts-et-Nevis": [17.357822, -62.782998],
+    "🇸🇲 Saint-Marin": [43.94236, 12.457777],
+    "🇻🇨 Saint-Vincent-et-les-Grenadines": [12.984305, -61.287228],
+    "🇱🇨 Sainte-Lucie": [13.909444, -60.978893],
+    "🇸🇻 Salvador": [13.794185, -88.89653],
+    "🇼🇸 Samoa": [-13.759029, -172.104629],
+    "🇸🇹 São Tomé-et-Principe": [0.18636, 6.613081],
+    "🇸🇳 Sénégal": [14.497401, -14.452362],
+    "🇷🇸 Serbie": [44.016521, 21.005859],
+    "🇸🇨 Seychelles": [-4.679574, 55.491977],
+    "🇸🇱 Sierra Leone": [8.460555, -11.779889],
+    "🇸🇬 Singapour": [1.352083, 103.819836],
+    "🇸🇰 Slovaquie": [48.669026, 19.699024],
+    "🇸🇮 Slovénie": [46.151241, 14.995463],
+    "🇸🇴 Somalie": [5.152149, 46.199616],
+    "🇸🇩 Soudan": [12.862807, 30.217636],
+    "🇸🇸 Soudan du Sud": [6.876991, 31.306978],
+    "🇱🇰 Sri Lanka": [7.873054, 80.771797],
+    "🇸🇪 Suède": [60.128161, 18.643501],
+    "🇨🇭 Suisse": [46.818188, 8.227512],
+    "🇸🇷 Suriname": [3.919305, -56.027783],
+    "🇸🇾 Syrie": [34.802075, 38.996815],
+
+    "🇹🇯 Tadjikistan": [38.861034, 71.276093],
+    "🇹🇼 Taïwan": [23.69781, 120.960515],
+    "🇹🇿 Tanzanie": [-6.369028, 34.888822],
+    "🇹🇩 Tchad": [15.454166, 18.732207],
+    "🇹🇭 Thaïlande": [15.870032, 100.992541],
+    "🇹🇱 Timor oriental": [-8.874217, 125.727539],
+    "🇹🇬 Togo": [8.619543, 0.824782],
+    "🇹🇴 Tonga": [-21.178986, -175.198242],
+    "🇹🇹 Trinité-et-Tobago": [10.691803, -61.222503],
+    "🇹🇳 Tunisie": [33.886917, 9.537499],
+    "🇹🇲 Turkménistan": [38.969719, 59.556278],
+    "🇹🇷 Turquie": [38.963745, 35.243322],
+    "🇹🇻 Tuvalu": [-7.109535, 177.64933],
+
+    "🇺🇦 Ukraine": [48.379433, 31.16558],
+    "🇺🇾 Uruguay": [-32.522779, -55.765835],
+
+    "🇻🇺 Vanuatu": [-15.376706, 166.959158],
+    "🇻🇦 Vatican": [41.902916, 12.453389],
+    "🇻🇪 Venezuela": [6.42375, -66.58973],
+    "🇻🇳 Viêt Nam": [14.058324, 108.277199],
+
+    "🇾🇪 Yémen": [15.552727, 48.516388],
+
+    "🇿🇲 Zambie": [-13.133897, 27.849332],
+    "🇿🇼 Zimbabwe": [-19.015438, 29.154857]
+  },
+  "aliases": {
+    "afghanistan": "🇦🇫 Afghanistan",
+
+    "afrique du sud": "🇿🇦 Afrique du Sud",
+    "south africa": "🇿🇦 Afrique du Sud",
+    "rsa": "🇿🇦 Afrique du Sud",
+
+    "albanie": "🇦🇱 Albanie",
+    "albania": "🇦🇱 Albanie",
+
+    "algérie": "🇩🇿 Algérie",
+    "algerie": "🇩🇿 Algérie",
+    "algeria": "🇩🇿 Algérie",
+
+    "allemagne": "🇩🇪 Allemagne",
+    "germany": "🇩🇪 Allemagne",
+    "deutschland": "🇩🇪 Allemagne",
+
+    "andorre": "🇦🇩 Andorre",
+    "andorra": "🇦🇩 Andorre",
+
+    "angola": "🇦🇴 Angola",
+
+    "antigua": "🇦🇬 Antigua-et-Barbuda",
+    "antigua et barbuda": "🇦🇬 Antigua-et-Barbuda",
+    "antigua and barbuda": "🇦🇬 Antigua-et-Barbuda",
+
+    "arabie saoudite": "🇸🇦 Arabie saoudite",
+    "saudi arabia": "🇸🇦 Arabie saoudite",
+    "ksa": "🇸🇦 Arabie saoudite",
+
+    "argentine": "🇦🇷 Argentine",
+
+    "arménie": "🇦🇲 Arménie",
+    "armenie": "🇦🇲 Arménie",
+    "armenia": "🇦🇲 Arménie",
+
+    "aruba": "🇦🇼 Aruba",
+
+    "australie": "🇦🇺 Australie",
+    "australia": "🇦🇺 Australie",
+
+    "autriche": "🇦🇹 Autriche",
+    "austria": "🇦🇹 Autriche",
+
+    "azerbaïdjan": "🇦🇿 Azerbaïdjan",
+    "azerbaidjan": "🇦🇿 Azerbaïdjan",
+    "azerbaijan": "🇦🇿 Azerbaïdjan",
+
+    "bahamas": "🇧🇸 Bahamas",
+
+    "bahreïn": "🇧🇭 Bahreïn",
+    "bahrein": "🇧🇭 Bahreïn",
+    "bahrain": "🇧🇭 Bahreïn",
+
+    "bangladesh": "🇧🇩 Bangladesh",
+
+    "barbade": "🇧🇧 Barbade",
+    "barbados": "🇧🇧 Barbade",
+
+    "belgique": "🇧🇪 Belgique",
+    "belgium": "🇧🇪 Belgique",
+
+    "belize": "🇧🇿 Belize",
+
+    "bénin": "🇧🇯 Bénin",
+    "benin": "🇧🇯 Bénin",
+
+    "bermudes": "🇧🇲 Bermudes",
+    "bermuda": "🇧🇲 Bermudes",
+
+    "bhoutan": "🇧🇹 Bhoutan",
+    "bhutan": "🇧🇹 Bhoutan",
+
+    "biélorussie": "🇧🇾 Biélorussie",
+    "bielorussie": "🇧🇾 Biélorussie",
+    "belarus": "🇧🇾 Biélorussie",
+
+    "bolivie": "🇧🇴 Bolivie",
+    "bolivia": "🇧🇴 Bolivie",
+
+    "bosnie": "🇧🇦 Bosnie-Herzégovine",
+    "bosnie herzegovine": "🇧🇦 Bosnie-Herzégovine",
+    "bosnia": "🇧🇦 Bosnie-Herzégovine",
+    "bosnia and herzegovina": "🇧🇦 Bosnie-Herzégovine",
+
+    "botswana": "🇧🇼 Botswana",
+
+    "brésil": "🇧🇷 Brésil",
+    "bresil": "🇧🇷 Brésil",
+    "brazil": "🇧🇷 Brésil",
+
+    "brunei": "🇧🇳 Brunei",
+
+    "bulgarie": "🇧🇬 Bulgarie",
+    "bulgaria": "🇧🇬 Bulgarie",
+
+    "burkina": "🇧🇫 Burkina Faso",
+    "burkina faso": "🇧🇫 Burkina Faso",
+
+    "burundi": "🇧🇮 Burundi",
+
+    "cambodge": "🇰🇭 Cambodge",
+    "cambodia": "🇰🇭 Cambodge",
+
+    "cameroun": "🇨🇲 Cameroun",
+    "cameroon": "🇨🇲 Cameroun",
+
+    "canada": "🇨🇦 Canada",
+
+    "cap vert": "🇨🇻 Cap-Vert",
+    "cap-vert": "🇨🇻 Cap-Vert",
+    "cape verde": "🇨🇻 Cap-Vert",
+
+    "chili": "🇨🇱 Chili",
+    "chile": "🇨🇱 Chili",
+
+    "chine": "🇨🇳 Chine",
+    "china": "🇨🇳 Chine",
+
+    "chypre": "🇨🇾 Chypre",
+    "cyprus": "🇨🇾 Chypre",
+
+    "colombie": "🇨🇴 Colombie",
+    "colombia": "🇨🇴 Colombie",
+
+    "comores": "🇰🇲 Comores",
+    "comoros": "🇰🇲 Comores",
+
+    "congo": "🇨🇬 Congo",
+    "republique du congo": "🇨🇬 Congo",
+
+    "rdc": "🇨🇩 République démocratique du Congo",
+    "drc": "🇨🇩 République démocratique du Congo",
+    "congo kinshasa": "🇨🇩 République démocratique du Congo",
+    "democratic republic of the congo": "🇨🇩 République démocratique du Congo",
+    "coree du nord": "🇰🇵 Corée du Nord",
+    "coréedunord": "🇰🇵 Corée du Nord",
+    "korea north": "🇰🇵 Corée du Nord",
+    "north korea": "🇰🇵 Corée du Nord",
+
+    "coree du sud": "🇰🇷 Corée du Sud",
+    "corée du sud": "🇰🇷 Corée du Sud",
+    "south korea": "🇰🇷 Corée du Sud",
+
+    "costa rica": "🇨🇷 Costa Rica",
+
+    "cote d ivoire": "🇨🇮 Côte d’Ivoire",
+    "côte d’ivoire": "🇨🇮 Côte d’Ivoire",
+    "ivory coast": "🇨🇮 Côte d’Ivoire",
+
+    "croatie": "🇭🇷 Croatie",
+    "croatia": "🇭🇷 Croatie",
+
+    "cuba": "🇨🇺 Cuba",
+
+    "curacao": "🇨🇼 Curaçao",
+    "curaçao": "🇨🇼 Curaçao",
+
+    "danemark": "🇩🇰 Danemark",
+    "denmark": "🇩🇰 Danemark",
+
+    "djibouti": "🇩🇯 Djibouti",
+
+    "dominique": "🇩🇲 Dominique",
+    "dominica": "🇩🇲 Dominique",
+
+    "egypte": "🇪🇬 Égypte",
+    "égypte": "🇪🇬 Égypte",
+    "egypt": "🇪🇬 Égypte",
+
+    "emirats arabes unis": "🇦🇪 Émirats arabes unis",
+    "émirats arabes unis": "🇦🇪 Émirats arabes unis",
+    "uae": "🇦🇪 Émirats arabes unis",
+    "united arab emirates": "🇦🇪 Émirats arabes unis",
+
+    "equateur": "🇪🇨 Équateur",
+    "équateur": "🇪🇨 Équateur",
+    "ecuador": "🇪🇨 Équateur",
+
+    "erythree": "🇪🇷 Érythrée",
+    "érythrée": "🇪🇷 Érythrée",
+    "eritrea": "🇪🇷 Érythrée",
+
+    "espagne": "🇪🇸 Espagne",
+    "spain": "🇪🇸 Espagne",
+
+    "estonie": "🇪🇪 Estonie",
+    "estonia": "🇪🇪 Estonie",
+
+    "eswatini": "🇸🇿 Eswatini",
+    "swaziland": "🇸🇿 Eswatini",
+
+    "micronesie": "🇫🇲 États fédérés de Micronésie",
+    "micronesia": "🇫🇲 États fédérés de Micronésie",
+
+    "etats unis": "🇺🇸 États-Unis",
+    "états-unis": "🇺🇸 États-Unis",
+    "Etats-Unis": "🇺🇸 États-Unis",
+    "états unis": "🇺🇸 États-Unis",
+    "usa": "🇺🇸 États-Unis",
+    "united states": "🇺🇸 États-Unis",
+
+    "ethiopie": "🇪🇹 Éthiopie",
+    "éthiopie": "🇪🇹 Éthiopie",
+    "ethiopia": "🇪🇹 Éthiopie",
+
+    "union européenne": "🇪🇺 Europe",
+    "europe": "🇪🇺 Europe",
+    "u.e.": "🇪🇺 Europe",
+    "ue": "🇪🇺 Europe",
+    "european union": "🇪🇺 Europe",
+
+    "fidji": "🇫🇯 Fidji",
+    "fiji": "🇫🇯 Fidji",
+
+    "finlande": "🇫🇮 Finlande",
+    "finland": "🇫🇮 Finlande",
+
+    "france": "🇫🇷 France",
+
+    "gabon": "🇬🇦 Gabon",
+
+    "gambie": "🇬🇲 Gambie",
+    "gambia": "🇬🇲 Gambie",
+
+    "georgie": "🇬🇪 Géorgie",
+    "géorgie": "🇬🇪 Géorgie",
+    "georgia": "🇬🇪 Géorgie",
+
+    "ghana": "🇬🇭 Ghana",
+
+    "gibraltar": "🇬🇮 Gibraltar",
+
+    "grece": "🇬🇷 Grèce",
+    "grèce": "🇬🇷 Grèce",
+    "greece": "🇬🇷 Grèce",
+
+    "grenade": "🇬🇩 Grenade",
+    "grenada": "🇬🇩 Grenade",
+
+    "groenland": "🇬🇱 Groenland",
+    "greenland": "🇬🇱 Groenland",
+
+    "guadeloupe": "🇬🇵 Guadeloupe",
+
+    "guatemala": "🇬🇹 Guatemala",
+
+    "guinee": "🇬🇳 Guinée",
+    "guinée": "🇬🇳 Guinée",
+    "guinea": "🇬🇳 Guinée",
+
+    "guinee bissau": "🇬🇼 Guinée-Bissau",
+    "guinea-bissau": "🇬🇼 Guinée-Bissau",
+
+    "guinee equatoriale": "🇬🇶 Guinée équatoriale",
+    "equatorial guinea": "🇬🇶 Guinée équatoriale",
+
+    "guyana": "🇬🇾 Guyana",
+
+    "guyane": "🇬🇫 Guyane française",
+    "guyane francaise": "🇬🇫 Guyane française",
+    "french guiana": "🇬🇫 Guyane française",
+
+    "haiti": "🇭🇹 Haïti",
+    "haïti": "🇭🇹 Haïti",
+
+    "honduras": "🇭🇳 Honduras",
+
+    "hongrie": "🇭🇺 Hongrie",
+    "hungary": "🇭🇺 Hongrie",
+
+    "hong kong": "🇭🇰 Hong Kong",
+    "hongkong": "🇭🇰 Hong Kong",
+
+    "iles marshall": "🇲🇭 Îles Marshall",
+    "îles marshall": "🇲🇭 Îles Marshall",
+    "marshall islands": "🇲🇭 Îles Marshall",
+
+    "iles salomon": "🇸🇧 Îles Salomon",
+    "îles salomon": "🇸🇧 Îles Salomon",
+    "solomon islands": "🇸🇧 Îles Salomon",
+
+    "iles caimans": "🇰🇾 Îles Caïmans",
+    "îles caïmans": "🇰🇾 Îles Caïmans",
+    "cayman islands": "🇰🇾 Îles Caïmans",
+
+    "iles vierges britanniques": "🇻🇬 Îles Vierges britanniques",
+    "british virgin islands": "🇻🇬 Îles Vierges britanniques",
+
+    "iles vierges des etats unis": "🇻🇮 Îles Vierges des États-Unis",
+    "us virgin islands": "🇻🇮 Îles Vierges des États-Unis",
+
+    "iles feroe": "🇫🇴 Îles Féroé",
+    "îles féroé": "🇫🇴 Îles Féroé",
+    "faroe islands": "🇫🇴 Îles Féroé",
+
+    "inde": "🇮🇳 Inde",
+    "india": "🇮🇳 Inde",
+
+    "indonesie": "🇮🇩 Indonésie",
+    "indonésie": "🇮🇩 Indonésie",
+    "indonesia": "🇮🇩 Indonésie",
+
+    "irak": "🇮🇶 Irak",
+    "iraq": "🇮🇶 Irak",
+
+    "iran": "🇮🇷 Iran",
+
+    "irlande": "🇮🇪 Irlande",
+    "ireland": "🇮🇪 Irlande",
+
+    "islande": "🇮🇸 Islande",
+    "iceland": "🇮🇸 Islande",
+
+    "israel": "🇮🇱 Israël",
+    "israël": "🇮🇱 Israël",
+
+    "italie": "🇮🇹 Italie",
+    "italy": "🇮🇹 Italie",
+
+    "jamaique": "🇯🇲 Jamaïque",
+    "jamaïque": "🇯🇲 Jamaïque",
+    "jamaica": "🇯🇲 Jamaïque",
+
+    "japon": "🇯🇵 Japon",
+    "japan": "🇯🇵 Japon",
+
+    "jordanie": "🇯🇴 Jordanie",
+    "jordan": "🇯🇴 Jordanie",
+
+    "kazakhstan": "🇰🇿 Kazakhstan",
+
+    "kenya": "🇰🇪 Kenya",
+
+    "kirghizistan": "🇰🇬 Kirghizistan",
+    "kyrgyzstan": "🇰🇬 Kirghizistan",
+
+    "kiribati": "🇰🇮 Kiribati",
+
+    "kosovo": "🇽🇰 Kosovo",
+
+    "koweit": "🇰🇼 Koweït",
+    "koweït": "🇰🇼 Koweït",
+    "kuwait": "🇰🇼 Koweït",
+
+    "laos": "🇱🇦 Laos",
+    "lao": "🇱🇦 Laos",
+
+    "lesotho": "🇱🇸 Lesotho",
+
+    "lettonie": "🇱🇻 Lettonie",
+    "latvia": "🇱🇻 Lettonie",
+
+    "liban": "🇱🇧 Liban",
+    "lebanon": "🇱🇧 Liban",
+
+    "liberia": "🇱🇷 Liberia",
+
+    "libye": "🇱🇾 Libye",
+    "libya": "🇱🇾 Libye",
+
+    "liechtenstein": "🇱🇮 Liechtenstein",
+
+    "lituanie": "🇱🇹 Lituanie",
+    "lithuania": "🇱🇹 Lituanie",
+
+    "luxembourg": "🇱🇺 Luxembourg",
+
+    "macao": "🇲🇴 Macao",
+    "macau": "🇲🇴 Macao",
+
+    "madagascar": "🇲🇬 Madagascar",
+
+    "malaisie": "🇲🇾 Malaisie",
+    "malaysia": "🇲🇾 Malaisie",
+
+    "malawi": "🇲🇼 Malawi",
+
+    "maldives": "🇲🇻 Maldives",
+
+    "mali": "🇲🇱 Mali",
+
+    "malte": "🇲🇹 Malte",
+    "malta": "🇲🇹 Malte",
+
+    "maroc": "🇲🇦 Maroc",
+    "morocco": "🇲🇦 Maroc",
+
+    "martinique": "🇲🇶 Martinique",
+
+    "maurice": "🇲🇺 Maurice",
+    "mauritius": "🇲🇺 Maurice",
+
+    "mauritanie": "🇲🇷 Mauritanie",
+    "mauritania": "🇲🇷 Mauritanie",
+
+    "mayotte": "🇾🇹 Mayotte",
+
+    "mexique": "🇲🇽 Mexique",
+    "mexico": "🇲🇽 Mexique",
+
+    "moldavie": "🇲🇩 Moldavie",
+    "moldova": "🇲🇩 Moldavie",
+
+    "monaco": "🇲🇨 Monaco",
+
+    "mongolie": "🇲🇳 Mongolie",
+    "mongolia": "🇲🇳 Mongolie",
+
+    "montenegro": "🇲🇪 Monténégro",
+    "monténégro": "🇲🇪 Monténégro",
+
+    "mozambique": "🇲🇿 Mozambique",
+
+    "myanmar": "🇲🇲 Myanmar",
+    "birmanie": "🇲🇲 Myanmar",
+
+    "namibie": "🇳🇦 Namibie",
+    "namibia": "🇳🇦 Namibie",
+
+    "nauru": "🇳🇷 Nauru",
+
+    "népal": "🇳🇵 Népal",
+    "nepal": "🇳🇵 Népal",
+
+    "nicaragua": "🇳🇮 Nicaragua",
+
+    "niger": "🇳🇪 Niger",
+
+    "nigeria": "🇳🇬 Nigeria",
+
+    "norvège": "🇳🇴 Norvège",
+    "norvege": "🇳🇴 Norvège",
+    "norway": "🇳🇴 Norvège",
+
+    "nouvelle caledonie": "🇳🇨 Nouvelle-Calédonie",
+    "nouvelle-calédonie": "🇳🇨 Nouvelle-Calédonie",
+    "new caledonia": "🇳🇨 Nouvelle-Calédonie",
+
+    "nouvelle zelande": "🇳🇿 Nouvelle-Zélande",
+    "nouvelle-zélande": "🇳🇿 Nouvelle-Zélande",
+    "new zealand": "🇳🇿 Nouvelle-Zélande",
+
+    "oman": "🇴🇲 Oman",
+
+    "ouganda": "🇺🇬 Ouganda",
+    "uganda": "🇺🇬 Ouganda",
+
+    "ouzbekistan": "🇺🇿 Ouzbékistan",
+    "ouzbékistan": "🇺🇿 Ouzbékistan",
+    "uzbekistan": "🇺🇿 Ouzbékistan",
+
+    "pakistan": "🇵🇰 Pakistan",
+
+    "palaos": "🇵🇼 Palaos",
+    "palau": "🇵🇼 Palaos",
+
+    "palestine": "🇵🇸 Palestine",
+    "israël/pays palestinien": "🇵🇸 Palestine",
+    "gaza": "🇵🇸 Palestine",
+    "state of palestine": "🇵🇸 Palestine",
+
+    "panama": "🇵🇦 Panama",
+
+    "papouasie nouvelle guinee": "🇵🇬 Papouasie-Nouvelle-Guinée",
+    "papouasie-nouvelle-guinée": "🇵🇬 Papouasie-Nouvelle-Guinée",
+    "papua new guinea": "🇵🇬 Papouasie-Nouvelle-Guinée",
+
+    "paraguay": "🇵🇾 Paraguay",
+
+    "pays bas": "🇳🇱 Pays-Bas",
+    "pays-bas": "🇳🇱 Pays-Bas",
+    "netherlands": "🇳🇱 Pays-Bas",
+    "holland": "🇳🇱 Pays-Bas",
+
+    "pérou": "🇵🇪 Pérou",
+    "perou": "🇵🇪 Pérou",
+    "peru": "🇵🇪 Pérou",
+
+    "philippines": "🇵🇭 Philippines",
+    "the philippines": "🇵🇭 Philippines",
+
+    "pologne": "🇵🇱 Pologne",
+    "poland": "🇵🇱 Pologne",
+
+    "polynesie francaise": "🇵🇫 Polynésie française",
+    "polynésie française": "🇵🇫 Polynésie française",
+    "french polynesia": "🇵🇫 Polynésie française",
+
+    "porto rico": "🇵🇷 Porto Rico",
+    "puerto rico": "🇵🇷 Porto Rico",
+
+    "portugal": "🇵🇹 Portugal",
+
+    "qatar": "🇶🇦 Qatar",
+
+    "republique centrafricaine": "🇨🇫 République centrafricaine",
+    "république centrafricaine": "🇨🇫 République centrafricaine",
+    "central african republic": "🇨🇫 République centrafricaine",
+
+    "republique dominicaine": "🇩🇴 République dominicaine",
+    "république dominicaine": "🇩🇴 République dominicaine",
+    "dominican republic": "🇩🇴 République dominicaine",
+
+    "republique tcheque": "🇨🇿 République tchèque",
+    "république tchèque": "🇨🇿 République tchèque",
+    "czech republic": "🇨🇿 République tchèque",
+    "czechia": "🇨🇿 République tchèque",
+
+    "la reunion": "🇷🇪 La Réunion",
+    "la réunion": "🇷🇪 La Réunion",
+    "reunion": "🇷🇪 La Réunion",
+
+    "roumanie": "🇷🇴 Roumanie",
+    "romania": "🇷🇴 Roumanie",
+
+    "royaume uni": "🇬🇧 Royaume-Uni",
+    "royaume-uni": "🇬🇧 Royaume-Uni",
+    "uk": "🇬🇧 Royaume-Uni",
+    "u.k.": "🇬🇧 Royaume-Uni",
+    "united kingdom": "🇬🇧 Royaume-Uni",
+    "great britain": "🇬🇧 Royaume-Uni",
+
+    "russie": "🇷🇺 Russie",
+    "russia": "🇷🇺 Russie",
+    "russian federation": "🇷🇺 Russie",
+
+    "rwanda": "🇷🇼 Rwanda",
+
+    "sahara occidental": "🌍 Sahara occidental",
+    "western sahara": "🌍 Sahara occidental",
+
+    "saint kitts et nevis": "🇰🇳 Saint-Kitts-et-Nevis",
+    "saint-kitts-et-nevis": "🇰🇳 Saint-Kitts-et-Nevis",
+    "saint kitts and nevis": "🇰🇳 Saint-Kitts-et-Nevis",
+
+    "saint marin": "🇸🇲 Saint-Marin",
+    "saint-marin": "🇸🇲 Saint-Marin",
+    "san marino": "🇸🇲 Saint-Marin",
+
+    "saint vincent et les grenadines": "🇻🇨 Saint-Vincent-et-les-Grenadines",
+    "saint-vincent-et-les-grenadines": "🇻🇨 Saint-Vincent-et-les-Grenadines",
+    "saint vincent and the grenadines": "🇻🇨 Saint-Vincent-et-les-Grenadines",
+
+    "sainte lucie": "🇱🇨 Sainte-Lucie",
+    "sainte-lucie": "🇱🇨 Sainte-Lucie",
+    "saint lucia": "🇱🇨 Sainte-Lucie",
+
+    "salvador": "🇸🇻 Salvador",
+    "el salvador": "🇸🇻 Salvador",
+
+    "samoa": "🇼🇸 Samoa",
+
+    "sao tome et principe": "🇸🇹 São Tomé-et-Principe",
+    "são tomé et principe": "🇸🇹 São Tomé-et-Principe",
+    "sao tome and principe": "🇸🇹 São Tomé-et-Principe",
+
+    "senegal": "🇸🇳 Sénégal",
+    "sénégal": "🇸🇳 Sénégal",
+
+    "serbie": "🇷🇸 Serbie",
+    "serbia": "🇷🇸 Serbie",
+
+    "seychelles": "🇸🇨 Seychelles",
+
+    "sierra leone": "🇸🇱 Sierra Leone",
+
+    "singapour": "🇸🇬 Singapour",
+    "singapore": "🇸🇬 Singapour",
+
+    "slovaquie": "🇸🇰 Slovaquie",
+    "slovakia": "🇸🇰 Slovaquie",
+
+    "slovénie": "🇸🇮 Slovénie",
+    "slovenie": "🇸🇮 Slovénie",
+    "slovenia": "🇸🇮 Slovénie",
+
+    "somalie": "🇸🇴 Somalie",
+    "somalia": "🇸🇴 Somalie",
+
+    "soudan": "🇸🇩 Soudan",
+    "sudan": "🇸🇩 Soudan",
+
+    "soudan du sud": "🇸🇸 Soudan du Sud",
+    "south sudan": "🇸🇸 Soudan du Sud",
+
+    "sri lanka": "🇱🇰 Sri Lanka",
+    "ceylan": "🇱🇰 Sri Lanka",
+    "ceylon": "🇱🇰 Sri Lanka",
+
+    "suede": "🇸🇪 Suède",
+    "suède": "🇸🇪 Suède",
+    "sweden": "🇸🇪 Suède",
+
+    "suisse": "🇨🇭 Suisse",
+    "switzerland": "🇨🇭 Suisse",
+
+    "suriname": "🇸🇷 Suriname",
+
+    "syrie": "🇸🇾 Syrie",
+    "syria": "🇸🇾 Syrie",
+
+    "tadjikistan": "🇹🇯 Tadjikistan",
+    "tajikistan": "🇹🇯 Tadjikistan",
+
+    "taiwan": "🇹🇼 Taïwan",
+    "taïwan": "🇹🇼 Taïwan",
+
+    "tanzanie": "🇹🇿 Tanzanie",
+    "tanzania": "🇹🇿 Tanzanie",
+
+    "tchad": "🇹🇩 Tchad",
+    "chad": "🇹🇩 Tchad",
+
+    "thailande": "🇹🇭 Thaïlande",
+    "thaïlande": "🇹🇭 Thaïlande",
+    "thailand": "🇹🇭 Thaïlande",
+
+    "timor oriental": "🇹🇱 Timor oriental",
+    "east timor": "🇹🇱 Timor oriental",
+    "timor-leste": "🇹🇱 Timor oriental",
+
+    "togo": "🇹🇬 Togo",
+
+    "tonga": "🇹🇴 Tonga",
+
+    "trinite et tobago": "🇹🇹 Trinité-et-Tobago",
+    "trinité et tobago": "🇹🇹 Trinité-et-Tobago",
+    "trinidad and tobago": "🇹🇹 Trinité-et-Tobago",
+
+    "tunisie": "🇹🇳 Tunisie",
+    "tunisia": "🇹🇳 Tunisie",
+
+    "turkmenistan": "🇹🇲 Turkménistan",
+    "turkménistan": "🇹🇲 Turkménistan",
+
+    "turquie": "🇹🇷 Turquie",
+    "turkey": "🇹🇷 Turquie",
+
+    "tuvalu": "🇹🇻 Tuvalu",
+
+    "ukraine": "🇺🇦 Ukraine",
+
+    "uruguay": "🇺🇾 Uruguay",
+
+    "vanuatu": "🇻🇺 Vanuatu",
+
+    "vatican": "🇻🇦 Vatican",
+    "saint siege": "🇻🇦 Vatican",
+    "holy see": "🇻🇦 Vatican",
+
+    "venezuela": "🇻🇪 Venezuela",
+
+    "viet nam": "🇻🇳 Viêt Nam",
+    "viêt nam": "🇻🇳 Viêt Nam",
+    "vietnam": "🇻🇳 Viêt Nam",
+
+    "yemen": "🇾🇪 Yémen",
+    "yémen": "🇾🇪 Yémen",
+
+    "zambie": "🇿🇲 Zambie",
+    "zambia": "🇿🇲 Zambie",
+
+    "zimbabwe": "🇿🇼 Zimbabwe"
+}
+}

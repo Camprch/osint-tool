@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSINT Dashboard</title>
+
+    <!-- Favicon emoji 🛰️ -->
+    <link rel="icon" type="image/svg+xml"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='central' font-size='52'%3E🛰️%3C/text%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    >
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
+</head>
+
+<body>
+
+
+
+<header>
+    <h1>
+        <span class="logo-icon">🛰️</span>
+        OSINT
+    </h1>
+    <div id="timeline-container-global">
+        <select id="timeline-global"></select>
+    </div>
+</header>
+
+<div id="dashboard-alert"></div>
+
+<div id="map"></div>
+
+<!-- Panneau latéral -->
+<div id="sidepanel">
+    <button id="close-panel">✖</button>
+    <div id="sidepanel-header-row">
+        <h2 id="panel-country-name"><span id="panel-country-text"></span></h2>
+    </div>
+    <div id="sidepanel-content">
+        <div id="sidepanel-events-header" style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <h3 style="margin: 0;">Événements 📰</h3>
+            <div id="timeline-container-panel">
+                <select id="timeline-panel"></select>
+            </div>
+        </div>
+        <div id="events"></div>
+    </div>
+</div>
+<div id="sidepanel-backdrop"></div>
+
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>
