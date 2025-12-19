@@ -42,8 +42,10 @@ def init_db() -> None:
 
 
 
+
 from typing import Generator
 
+@contextmanager
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
         yield session
