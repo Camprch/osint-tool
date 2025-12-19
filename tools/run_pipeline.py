@@ -26,36 +26,47 @@ def store_messages(messages: list[dict]) -> None:
     Enregistre les messages dans SQLite.
     """
     from datetime import datetime, timezone
+    from sqlmodel import SQLModel
+    import traceback
     batch_size = 10
+    total = 0
     with get_session() as session:
         for i in range(0, len(messages), batch_size):
             batch = messages[i:i+batch_size]
-            for msg in batch:
-                event_timestamp = msg.get("date")
-                if event_timestamp is not None:
-                    if isinstance(event_timestamp, str):
-                        try:
-                            event_timestamp = datetime.fromisoformat(event_timestamp)
-                        except Exception:
-                            event_timestamp = None
-                    if isinstance(event_timestamp, datetime):
-                        if event_timestamp.tzinfo is None:
-                            event_timestamp = event_timestamp.replace(tzinfo=timezone.utc)
-                m = Message(
-                    source=msg.get("source") or "unknown",
-                    channel=msg.get("channel"),
-                    raw_text=msg.get("text", ""),
-                    translated_text=msg.get("translated_text"),
-                    country=msg.get("country"),
-                    region=msg.get("region"),
-                    location=msg.get("location"),
-                    title=msg.get("title"),
-                    event_timestamp=event_timestamp,
-                    telegram_message_id=msg.get("telegram_message_id"),
-                    orientation=msg.get("orientation"),
-                )
-                session.add(m)
-            session.commit()
+            try:
+                for msg in batch:
+                    event_timestamp = msg.get("date")
+                    if event_timestamp is not None:
+                        if isinstance(event_timestamp, str):
+                            try:
+                                event_timestamp = datetime.fromisoformat(event_timestamp)
+                            except Exception:
+                                event_timestamp = None
+                        if isinstance(event_timestamp, datetime):
+                            if event_timestamp.tzinfo is None:
+                                event_timestamp = event_timestamp.replace(tzinfo=timezone.utc)
+                    m = Message(
+                        source=msg.get("source") or "unknown",
+                        channel=msg.get("channel"),
+                        raw_text=msg.get("text", ""),
+                        translated_text=msg.get("translated_text"),
+                        country=msg.get("country"),
+                        region=msg.get("region"),
+                        location=msg.get("location"),
+                        title=msg.get("title"),
+                        event_timestamp=event_timestamp,
+                        telegram_message_id=msg.get("telegram_message_id"),
+                        orientation=msg.get("orientation"),
+                    )
+                    session.add(m)
+                session.flush()  # force l'envoi à la base, mais pas de commit global
+                session.commit()
+                total += len(batch)
+            except Exception as e:
+                print(f"[ERREUR] lors de l'insertion batch {i//batch_size+1}: {e}")
+                traceback.print_exc()
+                session.rollback()
+    print(f"[INFO] {total} messages insérés en base.")
     # Log supprimé : nombre de messages stockés
 
 

@@ -41,8 +41,10 @@ def init_db() -> None:
     SQLModel.metadata.create_all(engine)
 
 
-@contextmanager
-def get_session() -> Session:
+
+from typing import Generator
+
+def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
         yield session
 
