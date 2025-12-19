@@ -1,9 +1,11 @@
 # tools/run_pipeline.py
+
 import asyncio
 from pathlib import Path
 from datetime import datetime, timedelta
-
 import sys
+from dotenv import load_dotenv
+load_dotenv()
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
@@ -54,7 +56,7 @@ def store_messages(messages: list[dict]) -> None:
             )
             session.add(m)
         session.commit()
-    print(f"[pipeline] {len(messages)} messages stockés.")
+    # Log supprimé : nombre de messages stockés
 
 
 def filter_existing_messages(messages: list[dict]) -> list[dict]:
@@ -75,7 +77,7 @@ def filter_existing_messages(messages: list[dict]) -> list[dict]:
         )
         existing = set((row[0], row[1]) for row in session.exec(stmt).all())
     filtered = [m for m in messages if (m.get("channel"), m.get("telegram_message_id")) not in existing]
-    print(f"[pipeline] {len(messages)-len(filtered)} messages déjà en base ignorés.")
+    # Log supprimé : nombre de messages déjà en base ignorés
     return filtered
 
 
@@ -93,46 +95,26 @@ def delete_old_messages(days: int = 10) -> None:
         session.commit()
 
     deleted = getattr(result, "rowcount", None)
-    print(f"[pipeline] Messages plus vieux que {days} jours supprimés ({deleted}).")
+    # Log supprimé : nombre de messages supprimés
 
 
 async def run_pipeline_once():
-    print("[pipeline] init_db()")
     init_db()
-
-    print("[pipeline] fetch_raw_messages_24h()")
 
     raw_messages = await fetch_raw_messages_24h()
     if not raw_messages:
-        print("[pipeline] Aucun message à traiter.")
         return
 
     # Filtrage des messages déjà présents en base
     raw_messages = filter_existing_messages(raw_messages)
     if not raw_messages:
-        print("[pipeline] Tous les messages sont déjà en base. Rien à faire.")
         return
 
-    print("[pipeline] translate_messages()")
     translate_messages(raw_messages)
-    # Log des traductions pour diagnostic
-    for i, msg in enumerate(raw_messages[:10]):
-        print(f"[trad] {i}: EN: {msg.get('text', '')[:60]} | FR: {msg.get('translated_text', '')[:60]}")
-
-    print("[pipeline] enrich_messages()")
     enrich_messages(raw_messages)
-
-    print("[pipeline] dedupe_messages()")
     deduped = dedupe_messages(raw_messages)
-    print(f"[pipeline] Après déduplication : {len(deduped)} messages")
-
-    print("[pipeline] store_messages()")
     store_messages(deduped)
-
-    print("[pipeline] delete_old_messages()")
-    delete_old_messages(days=10)
-
-    print("[pipeline] Pipeline terminé.")
+    delete_old_messages(days=7)
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 # app/services/fetch.py
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict
-import os  # 👈 ajouté
+import os
 
 from telethon import TelegramClient
 from telethon.errors import UsernameInvalidError, UsernameNotOccupiedError
-from telethon.sessions import StringSession  # 👈 ajouté
+from telethon.sessions import StringSession
 
 from app.config import get_settings
 
@@ -68,9 +68,13 @@ async def fetch_raw_messages_24h() -> List[Dict]:
     # - si TG_SESSION est présente (GitHub Actions) -> StringSession
     # - sinon, on utilise le fichier de session local (settings.telegram_session)
     session_str = os.environ.get("TG_SESSION")
+    if session_str:
+        session_str = session_str.strip('"\'')
+    print(f"[DEBUG] TG_SESSION nettoyée: {repr(session_str)}")
 
     if session_str:
         # Mode CI / GitHub Actions
+        print("[DEBUG] Utilisation de TG_SESSION (string session)")
         client = TelegramClient(
             StringSession(session_str),
             settings.telegram_api_id,
@@ -78,8 +82,12 @@ async def fetch_raw_messages_24h() -> List[Dict]:
         )
     else:
         # Mode local (fichier .session classique)
+        local_session = settings.telegram_session
+        if local_session:
+            local_session = local_session.strip('"\'')
+        print(f"[DEBUG] Utilisation du fichier de session nettoyé: {local_session}")
         client = TelegramClient(
-            settings.telegram_session,
+            local_session,
             settings.telegram_api_id,
             settings.telegram_api_hash,
         )

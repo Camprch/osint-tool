@@ -8,6 +8,7 @@ import os
 from typing import ClassVar
 
 
+
 class Settings(BaseSettings):
     # 🔧 Autoriser des variables en plus dans le .env
     # Utilise .env si présent, sinon .env.example
@@ -23,7 +24,7 @@ class Settings(BaseSettings):
 
     telegram_api_id: int
     telegram_api_hash: str
-    telegram_session: str = "telegram_session"
+    telegram_session: str | None = None  # Optionnel maintenant
 
     sources_telegram: str = ""
 
