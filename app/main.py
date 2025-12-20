@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.api.routes import router as api_router
+from app.api import router as api_router
 
 app = FastAPI(title="OSINT Dashboard (from scratch)")
 
