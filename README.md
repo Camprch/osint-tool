@@ -1,4 +1,4 @@
-### 🛰️ OSINT Telegram Dashboard
+# 🛰️ OSINT Telegram Dashboard
 
 ![Description de l’image](static/img/banner.png)
 
