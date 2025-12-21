@@ -1,6 +1,7 @@
 # 🛰️ OSINT Telegram Dashboard
 
-![Description de l’image](static/img/banner.png)
+![carte principale](static/img/screen1.png)
+![panneau latéral](static/img/screen2.png)
 
 Ce projet est une application FastAPI permettant de collecter, traduire, enrichir et afficher des événements provenant de sources Telegram sur un planisphère interactif.
 
@@ -17,7 +18,7 @@ Ce projet est une application FastAPI permettant de collecter, traduire, enrichi
 
 ---
 
-## 🗃️ Structure du projet
+## 🏗️ Structure du projet
 
 - `app/` : Backend FastAPI, logique métier, API, modèles, services
 - `tools/` : Scripts CLI (init Telegram, export, pipeline)
@@ -27,7 +28,7 @@ Ce projet est une application FastAPI permettant de collecter, traduire, enrichi
 
 ---
 
-## ⚙️ Installation
+## 💾 Installation
 
 1. Créez un environnement virtuel Python 3.10+ :
    ```bash
@@ -60,7 +61,7 @@ Ce projet est une application FastAPI permettant de collecter, traduire, enrichi
 
 ---
 
-## 🔧 Configuration
+## ⚙️ Configuration
 
 Voir `.env.example` pour les variables nécessaires :
 - Clés Telegram & OpenAI
@@ -68,13 +69,6 @@ Voir `.env.example` pour les variables nécessaires :
 - Model OpenAI
 - Nombre max msg/jours
 - Batch size
-
----
-
-## 🎨 Frontend
-
-- Carte Leaflet, affichage par pays, événements détaillés par zone
-- Fichiers : `static/js/dashboard.js`, `static/css/dashboard.css`, `static/data/countries.json`
 
 ---
 
